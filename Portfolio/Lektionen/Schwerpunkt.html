@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Images</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- ========= HEADER ========= -->
+  <header class="hero">
+    <a href="../index.html" class="home-link">Web Programming</a>
+    <h1>Responsive Images (srcset, sizes & picture)</h1>
+  </header>
+
+  <main class="lesson-content">
+
+    <!-- Einführung -->
+    <section>
+      <h2>Warum Responsive Images?</h2>
+      <p>
+        Bilder machen Websites schöner, aber sie verursachen auch die <strong>höchste Ladezeit</strong>.
+        Ein einziges zu großes Bild kann die gesamte Seite verlangsamen. Da moderne Nutzer Geräte wie
+        Smartphones, Tablets, Laptops und 4K-Monitore verwenden, braucht jedes Gerät eine passende
+        Bildgröße. Hier kommen <strong>Responsive Images</strong> ins Spiel.
+      </p>
+
+      <p>
+        Ziel von Responsive Images:  
+        <strong>„Das richtige Bild – in der richtigen Größe – zum richtigen Zeitpunkt.“</strong>
+      </p>
+
+      <ul>
+        <li>schnellere Ladezeiten</li>
+        <li>optimale Bildschärfe auf Retina-Displays</li>
+        <li>weniger mobiler Datenverbrauch</li>
+        <li>bessere SEO durch höhere PageSpeed-Werte</li>
+      </ul>
+    </section>
+
+    <!-- 1: srcset -->
+    <section>
+      <h2><code>srcset</code> – mehrere Auflösungen bereitstellen</h2>
+
+      <p>
+        Mit <code>srcset</code> gibst du dem Browser mehrere Bildvarianten. Er wählt die <em>beste</em>
+        Größe abhängig von Bildschirmbreite & DPI aus.
+      </p>
+
+<pre><code>&lt;img 
+  src="img/mountain-800.jpg"
+  srcset="
+    img/mountain-400.jpg 400w,
+    img/mountain-800.jpg 800w,
+    img/mountain-1600.jpg 1600w
+  "
+  alt="Berglandschaft"&gt;
+</code></pre>
+
+      <p><strong>Interpretation:</strong>  
+      • 400w = ideal für Handy  
+      • 800w = Laptop/Standardmonitor  
+      • 1600w = Retina/4K</p>
+
+      <!-- Interaktiv – Demo: Responsive Bild -->
+<div class="interactive-example">
+  <h4>Demo: Responsive Bild</h4>
+<img
+    class="responsive-demo-img"
+    src="../Assets/img/mountain-800.jpg"
+    srcset="
+      ../Assets/img/mountain-400.jpg 400w,
+      ../Assets/img/mountain-800.jpg 800w,
+      ../Assets/img/mountain-1600.jpg 1600w
+    "
+    sizes="(max-width: 600px) 400px,
+           (max-width: 1100px) 800px,
+           1600px"
+    alt="Responsive Demo Bild"
+  >
+
+  <p class="info">
+    Fenster schmaler und breiter ziehen – der Browser lädt automatisch die passende Bildversion.
+  </p>
+
+  <p id="loadedInfo" class="info">
+  Geladene Version: (wird automatisch ermittelt …)
+</p>
+</div>
+    </section>
+
+    <!-- 2: sizes -->
+    <section>
+      <h2><code>sizes</code> – Browser sagen, wie groß das Bild im Layout ist</h2>
+      <p>
+        <code>sizes</code> beschreibt die tatsächliche <strong>Anzeigegröße</strong> des Bildes
+        im Layout – nicht die Auflösung.
+      </p>
+
+<pre><code>sizes="(max-width: 600px) 90vw, 50vw"
+</code></pre>
+
+      <p><strong>Bedeutung:</strong></p>
+      <ul>
+        <li>bis 600px Bildschirmbreite → Bild ≈ 90% des Screens</li>
+        <li>alles darüber → Bild ≈ 50% der Breite</li>
+      </ul>
+    </section>
+
+    <!-- 3: picture -->
+    <section>
+      <h2><code>&lt;picture&gt;</code> – Art Direction (unterschiedliche Bilder)</h2>
+      <p>
+        Mit <code>picture</code> können komplett unterschiedliche Bildvarianten geliefert werden,
+        z. B. anderer Ausschnitt für mobile Nutzer.
+      </p>
+
+<pre><code>&lt;picture&gt;
+  &lt;source media="(max-width: 600px)" srcset="img/mountain-close.jpg"&gt;
+  &lt;source media="(min-width: 601px)" srcset="img/mountain-wide.jpg"&gt;
+  &lt;img src="img/mountain-fallback.jpg" alt="Berge"&gt;
+&lt;/picture&gt;
+</code></pre>
+
+      <p>
+        Dies nennt man <strong>Art Direction</strong>: unterschiedliche Bildinhalte je nach Gerät.
+      </p>
+    </section>
+
+    <!-- 4: Bildformate -->
+    <section>
+      <h2>Moderne Bildformate (WebP, AVIF) mit Fallback</h2>
+
+<pre><code>&lt;picture&gt;
+  &lt;source srcset="hero.avif" type="image/avif"&gt;
+  &lt;source srcset="hero.webp" type="image/webp"&gt;
+  &lt;img src="hero.jpg" alt="Hero Bild"&gt;
+&lt;/picture&gt;
+</code></pre>
+
+      <ul>
+        <li><strong>AVIF</strong> → beste Qualität, kleinste Dateigröße</li>
+        <li><strong>WebP</strong> → weit verbreitet, sehr gute Kompression</li>
+        <li><strong>JPEG</strong> → Fallback für ältere Browser</li>
+      </ul>
+    </section>
+
+  
+
+    <!-- 6: Kurze Zusammenfassung -->
+    <section>
+      <h2>Kompakte Zusammenfassung</h2>
+      <p><strong>srcset:</strong> mehrere Bildgrößen</p>
+      <p><strong>sizes:</strong> wie groß das Bild im Layout angezeigt wird</p>
+      <p><strong>picture:</strong> unterschiedliche Bildvarianten / Art Direction</p>
+      <p><strong>Vorteile:</strong> Geschwindigkeit ↑, Qualität ↑, SEO ↑</p>
+    </section>
+
+    <!-- Navigation -->
+    <div class="nav-buttons">
+      <a href="lektion7.html" class="btn back">← Zurück</a>
+      <a href="lektion9.html" class="btn next">Nächste Lektion →</a>
+    </div>
+
+  </main>
+
+  <!-- ========= ÜBER MICH ========= -->
+  <section class="about">
+    <h2>Über mich</h2>
+    <p><strong>Name:</strong> Pilli Mohamed</p>
+    <p><strong>Matrikelnummer:</strong>8052091</p>
+    <p><strong>Kurs:</strong> Webprogrammierung</p>
+  </section>
+
+  <!-- ========= FOOTER ========= -->
+  <footer>
+    <p>&copy; <span id="jahr"></span> Mein Portfolio</p>
+  </footer>
+
+  <script>
+    document.getElementById("jahr").textContent = new Date().getFullYear();
+  </script>
+
+<script>
+  // Helper: show which image file was actually chosen by the browser
+  function updateLoadedInfo() {
+    const img = document.querySelector('.responsive-demo-img');
+    const info = document.getElementById('loadedInfo');
+    if (!img || !info) return;
+
+    // currentSrc = tatsächliche Bild-URL, die benutzt wird
+    const url = img.currentSrc || img.src;
+    let label = 'Unbekannt';
+
+    if (url.includes('400'))  label = 'Mobile (400w)';
+    if (url.includes('800'))  label = 'Standard (800w)';
+    if (url.includes('1600')) label = 'Desktop/Retina (1600w)';
+
+    info.textContent = 'Geladene Version: ' + label + ' – ' + url.split('/').pop();
+  }
+
+  window.addEventListener('load', updateLoadedInfo);
+  window.addEventListener('resize', () => {
+    // Bei Resize kurz warten, bis Browser neue Quelle gewählt hat
+    clearTimeout(window.__imgTimeout);
+    window.__imgTimeout = setTimeout(updateLoadedInfo, 200);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lektion 7 – JavaScript Events & Window-Objekt</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- ========= HEADER ========= -->
+  <header class="hero">
+    <a href="../index.html" class="home-link">Web Programming</a>
+    <h1>Lektion 7 – JavaScript Events &amp; Window-Objekt</h1>
+  </header>
+
+  <!-- ========= MAIN CONTENT ========= -->
+  <main class="lesson-content">
+
+    <!-- 1) Grundprinzip -->
+    <section>
+      <h2>Grundprinzip: Ereignisgesteuerte Programmierung</h2>
+      <p>
+        Im Browser läuft fast alles über <strong>Events</strong>: Klicks, Scrollen, Tastendrücke,
+        Laden einer Seite, Größenänderung des Fensters usw. Diese Ereignisse landen in einer
+        <em>Event-Queue</em> und werden von der <em>Event-Loop</em> nacheinander an
+        <strong>Event-Handler</strong> (Funktionen) weitergegeben.
+      </p>
+      <p><strong>Aktion → Reaktion:</strong> Nutzer klickt auf einen Button → unsere Funktion prüft Eingaben oder ändert die Darstellung.</p>
+    </section>
+
+    <!-- 2) Drei Wege Events zu binden -->
+    <section>
+      <h2>Drei Wege, Events zu binden</h2>
+
+      <h3>1. HTML-Event-Handler (veraltet)</h3>
+      <pre><code>&lt;input id="age" type="number" onblur="checkAgeNotNegative()"&gt;</code></pre>
+
+      <h3>2. DOM-Event-Handler (Eigenschaft; nur 1 Handler)</h3>
+      <pre><code>function init() {
+  const element = document.getElementById("age");
+  element.onblur = checkAgeNotNegative;  // überschreibt evtl. bestehenden Handler
+}
+window.onload = init;</code></pre>
+
+      <h3>3. DOM-Event-Listener (empfohlen; mehrere möglich)</h3>
+      <pre><code>function init() {
+  const element = document.getElementById("age");
+  element.addEventListener("blur", checkAgeNotNegative);
+  element.addEventListener("blur", checkAgeIsNumber);
+}
+document.addEventListener("DOMContentLoaded", init);
+
+// auch als Arrow-Funktion:
+element.addEventListener("blur", () =&gt; {
+  const age = getAgeValue();
+  checkAgeNotNegative(age);
+});</code></pre>
+    </section>
+
+    <!-- 3) Event-Typen -->
+    <section>
+      <h2>Wichtige Event-Typen</h2>
+      <ul>
+        <li><strong>Maus:</strong> <code>click</code>, <code>dblclick</code>, <code>mouseover</code>, <code>mouseout</code>, <code>mousemove</code>, <code>mouseenter</code>, <code>mouseleave</code></li>
+        <li><strong>Tastatur:</strong> <code>keydown</code>, <code>keyup</code>, <code>keypress</code></li>
+        <li><strong>Formulare:</strong> <code>submit</code>, <code>reset</code>, <code>change</code>, <code>focus</code>, <code>blur</code></li>
+        <li><strong>UI:</strong> <code>scroll</code>, <code>resize</code>, <code>load</code>, <code>unload</code></li>
+        <li><strong>Touch/Mobile:</strong> <code>touchstart</code>, <code>touchend</code>, <code>touchmove</code></li>
+      </ul>
+    </section>
+
+    <!-- 4) Event-Objekt -->
+    <section>
+      <h2>Event-Objekt in JavaScript und jQuery</h2>
+      <p>Das <strong>Event-Objekt</strong> enthält u. a.: <code>pageX</code>/<code>pageY</code>, <code>screenX</code>/<code>screenY</code>, <code>target</code>, <code>which</code>.</p>
+      <pre><code>// jQuery-Beispiel: Klick irgendwo im Dokument
+$(document).click(function(evt) {
+  alert("X: " + evt.pageX + " Y: " + evt.pageY);
+});</code></pre>
+      <h3>Standardverhalten verhindern</h3>
+      <pre><code>document.getElementById("menue").addEventListener("click", (evt) =&gt; {
+  evt.preventDefault();  // verhindert das Folgen des Links
+  // ... eigener Code
+});
+
+// jQuery-Äquivalent:
+// $("#menue").click(function(evt) { evt.preventDefault(); });</code></pre>
+    </section>
+
+    <!-- 5) jQuery-Event-Modell -->
+    <section>
+      <h2>jQuery-Event-Modell</h2>
+      <pre><code>$(document).ready(function() {
+  $("#element").click(function() {
+    // Code hier
+  });
+});</code></pre>
+
+      <h3>Anonyme Funktionen als Handler</h3>
+      <pre><code>$("a").mouseover(function() {
+  alert("Link berührt!");
+});</code></pre>
+
+      <h3>hover() – Kurzform für mouseover + mouseout</h3>
+      <pre><code>$("#menue").hover(
+  function() { $("#untermenue").show(); },
+  function() { $("#untermenue").hide(); }
+);</code></pre>
+
+      <h3>toggle() – Klick wechselt zwischen Zuständen</h3>
+      <pre><code>$("#button").toggle(
+  function() { $("#box").show(); },
+  function() { $("#box").hide(); }
+);</code></pre>
+
+      <h3>bind() – Daten an Handler übergeben</h3>
+      <pre><code>var linkVar = { meldung: "Gruß von einem Link" };
+var pVar    = { meldung: "Gruß von einem Absatz" };
+
+function zeigeMeldung(evt) { alert(evt.data.meldung); }
+
+$("a").bind("click",    linkVar, zeigeMeldung);
+$("p").bind("mouseover", pVar,   zeigeMeldung);</code></pre>
+    </section>
+
+    <!-- 6) Interaktiv: blur -->
+    <section>
+      <h2>Interaktives Beispiel: Eingabe prüfen (blur-Event)</h2>
+      <div class="interactive-example">
+        <label for="ageInput"><strong>Alter eingeben:</strong></label><br>
+        <input type="number" id="ageInput" placeholder="z. B. 25">
+        <div id="ageMessage" class="console-output">// Rückmeldung zur Eingabe erscheint hier</div>
+      </div>
+    </section>
+
+    <!-- 7) Übung: Tabellenreihen -->
+    <section>
+      <h2>Übungsidee: Tabellenreihen hervorheben</h2>
+      <p>Mit <code>mouseenter</code>/<code>mouseleave</code> (oder <code>mouseover</code>/<code>mouseout</code>) Zeilen dynamisch hervorheben.</p>
+      <div class="interactive-example">
+        <table id="demoTable">
+          <thead>
+            <tr><th>Produkt</th><th>Preis</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Apfel</td><td>1,20 €</td></tr>
+            <tr><td>Banane</td><td>0,95 €</td></tr>
+            <tr><td>Kaffee</td><td>2,80 €</td></tr>
+          </tbody>
+        </table>
+        <p class="info">Bewegen Sie die Maus über die Zeilen – sie werden per Event-Handler hervorgehoben.</p>
+      </div>
+
+      <pre><code>// jQuery-Version (aus der Vorlesungsidee):
+$(document).ready(function() {
+  var reihen = $("table.gestreift tbody tr");
+  reihen.mouseover(function() { $(this).addClass("hervorheben"); });
+  reihen.mouseout(function()  { $(this).removeClass("hervorheben"); });
+});</code></pre>
+    </section>
+
+    <!-- 8) Window & BOM -->
+    <section>
+      <h2>Browser Object Model (BOM) &amp; Window-Objekt</h2>
+      <p><strong>Wichtige Eigenschaften:</strong> <code>location</code>, <code>history</code>, <code>navigator</code>, <code>screen</code>.</p>
+      <pre><code>console.log(window.innerHeight); // Höhe des Inhaltsbereichs
+console.log(window.innerWidth);  // Breite des Inhaltsbereichs
+console.log(window.screenX);     // Abstand vom linken Bildschirmrand
+console.log(window.screenY);     // Abstand vom oberen Bildschirmrand</code></pre>
+
+      <h3>Fenster und Scrollen steuern</h3>
+      <pre><code>window.moveBy(200, 200);
+window.resizeTo(800, 600);
+window.scrollTo(0, 500);</code></pre>
+    </section>
+
+    <!-- 9) Interaktiv: Window-Infos & popup -->
+    <section>
+      <h2>Interaktives Beispiel: Fenster-Infos &amp; neues Fenster</h2>
+      <div class="interactive-example">
+        <button id="infoBtn" class="btn">Fenster-Infos anzeigen</button>
+        <h4>Ausgabe</h4>
+        <div id="windowOutput" class="console-output">// Fenster- und Dokumentmaße erscheinen hier</div>
+        <hr>
+        <label for="urlInput"><strong>URL für neues Fenster:</strong></label><br>
+        <input type="text" id="urlInput" placeholder="https://example.org">
+        <button id="openBtn"  class="btn">Fenster öffnen</button>
+        <button id="closeBtn" class="btn">Fenster schließen</button>
+        <div id="openStatus" class="console-output">// Status des zusätzlichen Fensters</div>
+      </div>
+    </section>
+
+    <!-- 10) Akkordeon -->
+    <section>
+      <h2>Interaktive Navigation: Akkordeon</h2>
+      <p>jQuery UI-Variante (Konzept):</p>
+      <pre><code>$(document).ready(function() {
+  $("#akkordeon").accordion({
+    header: "h2",
+    event: "mouseover",    // alternativ 'click'
+    autoHeight: false,     // Höhe passt sich Inhalt an
+    active: ".oeffne",     // bestimmtes Tab beim Laden öffnen
+    selectedClass: "aktuell" // CSS-Klasse für aktives Register
+  });
+});</code></pre>
+
+      
+
+    <!-- 11) Zusammenfassung -->
+    <section>
+      <h2>Kompakte Zusammenfassung</h2>
+      <p>
+        <strong>Events:</strong> drei Bindungswege (HTML, DOM-Handler, <code>addEventListener</code>), wichtige Event-Typen
+        und das Event-Objekt (<code>pageX</code>, <code>target</code>, <code>which</code>). <code>preventDefault()</code>
+        bzw. <code>return false</code> verhindern Standardaktionen.
+      </p>
+      <p>
+        <strong>jQuery-Event-Modell:</strong> <code>$(document).ready()</code>, kompakte Handler-Schreibweise, <code>hover</code>,
+        <code>toggle</code>, <code>bind</code> mit Daten. Übungsbeispiele wie Tabellenhervorhebung zeigen typische Muster.
+      </p>
+      <p>
+        <strong>Window/BOM:</strong> Maße und Position auslesen, scrollen, Fenster öffnen/schließen; <strong>Akkordeon</strong> als
+        Navigation (jQuery UI oder eigene JS-Lösung). Zusammengenommen bilden Events, jQuery und das Window-Objekt
+        die Grundlage für interaktive Weboberflächen.
+      </p>
+    </section>
+
+    <!-- Navigation -->
+    <div class="nav-buttons">
+      <a href="lektion6.html" class="btn back">← Zurück</a>
+      <a href="../index.html" class="btn next">Zur Startseite →</a>
+    </div>
+
+  </main>
+
+  <!-- ========= ÜBER MICH ========= -->
+  <section class="about" style="padding: 0 1.5rem 1.5rem;">
+    <h2>Über mich</h2>
+    <p><strong>Name:</strong> Pilli Mohamed</p>
+    <p><strong>Matrikelnummer:</strong>8052091</p>
+    <p><strong>Kurs:</strong> Webprogrammierung</p>
+  </section>
+
+  <!-- ========= FOOTER ========= -->
+  <footer>
+    <p>&copy; <span id="jahr"></span> Mein Portfolio</p>
+  </footer>
+
+  <!-- ========= SCRIPT: INTERAKTIONEN ========= -->
+  <script>
+    // Jahr im Footer
+    document.getElementById("jahr").textContent = new Date().getFullYear();
+
+    // ===== Beispiel: Alter prüfen (blur-Event) =====
+    const ageInput   = document.getElementById("ageInput");
+    const ageMessage = document.getElementById("ageMessage");
+    if (ageInput && ageMessage) {
+      ageInput.addEventListener("blur", () => {
+        const value = ageInput.value.trim();
+        if (value === "") {
+          ageMessage.textContent = "Bitte ein Alter eingeben.";
+          return;
+        }
+        const num = Number(value);
+        if (Number.isNaN(num)) {
+          ageMessage.textContent = "Die Eingabe ist keine Zahl.";
+        } else if (num < 0) {
+          ageMessage.textContent = "Das Alter darf nicht negativ sein.";
+        } else {
+          ageMessage.textContent = "Vielen Dank! Alter = " + num + " Jahre.";
+        }
+      });
+    }
+    // jQuery-Äquivalent:
+    // $("#ageInput").on("blur", function() { ... });
+
+    // ===== Beispiel: Tabellenreihen hervorheben =====
+    const demoTable = document.getElementById("demoTable");
+    if (demoTable) {
+      const rows = demoTable.querySelectorAll("tbody tr");
+      rows.forEach((row) => {
+        row.addEventListener("mouseenter", () => { row.style.backgroundColor = "#B3CFE5"; });
+        row.addEventListener("mouseleave", () => { row.style.backgroundColor = ""; });
+      });
+    }
+
+    // ===== Beispiel: Fenster-Infos & neues Fenster =====
+    const infoBtn      = document.getElementById("infoBtn");
+    const windowOutput = document.getElementById("windowOutput");
+    const urlInput     = document.getElementById("urlInput");
+    const openBtn      = document.getElementById("openBtn");
+    const closeBtn     = document.getElementById("closeBtn");
+    const openStatus   = document.getElementById("openStatus");
+    let popupRef       = null;
+
+    if (infoBtn && windowOutput) {
+      infoBtn.addEventListener("click", () => {
+        const winH = window.innerHeight;
+        const winW = window.innerWidth;
+        const docH = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+        const docW = Math.max(document.documentElement.scrollWidth,  document.body.scrollWidth);
+        windowOutput.textContent =
+          "Window: " + winW + " × " + winH + "\n" +
+          "Document: " + docW + " × " + docH;
+      });
+    }
+
+    if (openBtn && urlInput && openStatus) {
+      openBtn.addEventListener("click", () => {
+        const url = (urlInput.value.trim() || "https://example.org");
+        popupRef = window.open(
+          url,
+          "Fenstertitel",
+          "width=500,height=500,resizable=yes,scrollbars=yes,status=1"
+        );
+        if (popupRef) {
+          openStatus.textContent = "Fenster geöffnet: " + url;
+        } else {
+          openStatus.textContent = "Das Fenster konnte nicht geöffnet werden (Popup-Blocker?).";
+        }
+      });
+    }
+
+    if (closeBtn && openStatus) {
+      closeBtn.addEventListener("click", () => {
+        if (popupRef && !popupRef.closed) {
+          popupRef.close();
+          openStatus.textContent = "Fenster geschlossen.";
+        } else {
+          openStatus.textContent = "Es ist kein zusätzliches Fenster geöffnet.";
+        }
+      });
+    }
+
+    // ===== Einfaches Akkordeon (ohne jQuery UI) =====
+    (function initAccordion() {
+      const headers = document.querySelectorAll("#simpleAccordion .accordion-header");
+      const panels  = document.querySelectorAll("#simpleAccordion .accordion-panel");
+
+      if (headers.length && panels.length) {
+        headers[0].classList.add("active");
+        panels[0].style.display = "block";
+      }
+
+      headers.forEach((header, index) => {
+        header.addEventListener("click", () => {
+          headers.forEach(h => h.classList.remove("active"));
+          header.classList.add("active");
+          panels.forEach((panel, i) => {
+            panel.style.display = (i === index ? "block" : "none");
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

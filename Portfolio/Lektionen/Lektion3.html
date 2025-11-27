@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lektion 3 – Fortgeschrittene JavaScript-Konzepte</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="hero">
+      <a href="../index.html" class="home-link">Web Programming</a>
+    <h1>Lektion 3 – Fortgeschrittene JavaScript-Konzepte</h1>
+  </header>
+
+  <main class="lesson-content">
+
+    <!-- === INTRO === -->
+    <section>
+      <h2>Einführung</h2>
+      <p>
+        In der dritten Vorlesung haben wir uns erneut kurz HTML gewidmet – diesmal mit Fokus auf das
+        <strong>HT (Hypertext)</strong> in HTML. Dabei wurde der <code>&lt;a&gt;</code>-Tag behandelt, mit dem
+        Hyperlinks zu anderen Seiten oder Dokumenten erstellt werden können.
+      </p>
+    </section>
+
+    <!-- === ANKER-TAG === -->
+    <section>
+      <h2>Der <code>&lt;a&gt;</code>-Tag im Detail</h2>
+      <p>
+        Der <code>&lt;a&gt;</code>-Tag, auch <em>Anker-Tag</em> genannt, wird verwendet, um
+        <strong>Links</strong> zu erstellen. Diese können entweder auf externe Websites oder auf
+        interne Seiten derselben Website verweisen.
+      </p>
+
+      <h3>Grundlegender Aufbau</h3>
+      <pre><code>&lt;a href="https://link.de"&gt;Linktext&lt;/a&gt;</code></pre>
+
+      <h3>Attribute des &lt;a&gt;-Tags</h3>
+      <ul>
+        <li><strong>href:</strong> Ziel-URL des Links (Pflichtattribut).</li>
+        <li><strong>target:</strong> Legt fest, ob der Link in einem neuen Tab (<code>_blank</code>)
+          oder im gleichen Fenster (<code>_self</code>) geöffnet wird.</li>
+        <li><strong>title:</strong> Zusätzliche Information, die beim Überfahren des Links erscheint.</li>
+      </ul>
+    </section>
+
+    <!-- === INTERNE LINKS === -->
+    <section>
+      <h2>Links zu internen Seiten</h2>
+      <p>
+        Neben externen Websites können Links auch auf andere HTML-Dateien innerhalb derselben Website verweisen.
+        Das ist besonders nützlich, wenn man eine mehrseitige Website mit Unterseiten erstellt.
+      </p>
+
+      <pre><code>&lt;a href="elixiere.html"&gt;Elixiere&lt;/a&gt;</code></pre>
+    </section>
+
+    <!-- === ORDNERSTRUKTUR === -->
+    <section>
+      <h2>Empfohlene Ordnerstruktur</h2>
+      <p>
+        Um eine übersichtliche Navigation zu gewährleisten, ist eine strukturierte Ablage wichtig.
+        Eine mögliche Struktur:
+      </p>
+      <pre><code>index.html            (Startseite)
+bar/bar.html          (Unterseite "Bar")
+getraenke/getraenke.html  (Unterseite "Getränke")
+images/               (Ordner für Bilder)</code></pre>
+    </section>
+
+    <!-- === VERLINKUNG ZWISCHEN ORDNERN === -->
+    <section>
+      <h2>Verlinken zwischen verschiedenen Ordnern</h2>
+      <p>
+        Wenn eine Seite aus einem Unterordner auf eine Datei in einem anderen Ordner verweisen soll,
+        muss der vollständige relative Pfad angegeben werden:
+      </p>
+      <pre><code>&lt;a href="getraenke/getraenke.html"&gt;Getränke&lt;/a&gt;</code></pre>
+
+      <h3>Verlinkung auf übergeordnete Seite</h3>
+      <p>
+        Mit dem Präfix <code>../</code> gelangt man eine Ebene im Verzeichnisbaum nach oben:
+      </p>
+      <pre><code>&lt;a href="../bar.html"&gt;Startseite&lt;/a&gt;</code></pre>
+    </section>
+
+    <!-- === WICHTIGE HINWEISE === -->
+    <section>
+      <h2>Wichtige Hinweise für Verlinkungen</h2>
+      <ul>
+        <li>Immer die Dateiendung <code>.html</code> angeben.</li>
+        <li>Pfad korrekt angeben, sonst wird die Datei nicht gefunden.</li>
+        <li>Bei internen Links auf korrekte Ordnerstruktur achten.</li>
+      </ul>
+    </section>
+
+    <!-- === ZUSAMMENFASSUNG === -->
+    <section>
+      <h2>Zusammenfassung</h2>
+      <p>
+        Der <code>&lt;a&gt;</code>-Tag ist eines der wichtigsten HTML-Elemente, da er die Navigation
+        innerhalb einer Website ermöglicht. Durch korrekt verwendete Pfade und eine saubere Ordnerstruktur
+        lässt sich eine intuitive Navigation umsetzen.
+      </p>
+    </section>
+
+    <!-- === INTERAKTIVES BEISPIEL === -->
+    <section>
+      <h2>Interaktives Beispiel: Link-Erzeugung mit JavaScript</h2>
+      <p>
+        Klicken Sie auf den Button, um ein Beispiel für einen dynamisch erzeugten Link anzuzeigen:
+      </p>
+
+      <div class="interactive-example">
+        <button id="createLinkBtn">Link erzeugen</button>
+        <div id="linkOutput" class="console-output">// Hier wird der erzeugte Link erscheinen</div>
+      </div>
+    </section>
+
+    <!-- === ÜBUNG 2: countBs (String-Analyse) === -->
+<section>
+  <h2>Übung 2: countBs</h2>
+  <p>
+    Testen Sie die Funktion <code>countBs</code>, die die Anzahl der Buchstaben
+    „B“ oder „b“ in einem eingegebenen String zählt.
+  </p>
+
+  <div class="interactive-example">
+    <button id="runScript_3" class="btn btn-primary">
+      Testen Sie den Code (countBs)
+    </button>
+
+    <p class="info">
+      Geben Sie einen beliebigen Text ein – die Anzahl der „B“ wird unten angezeigt.
+    </p>
+
+    <h4>Console-Ausgabe</h4>
+    <div id="output_3" class="console-output">// Hier wird die Ausgabe erscheinen</div>
+  </div>
+</section>
+    <!-- === NAVIGATION === -->
+    <div class="nav-buttons">
+      <a href="lektion2.html" class="btn back">← Zurück</a>
+      <a href="lektion4.html" class="btn next">Nächste Lektion →</a>
+    </div>
+  </main>
+
+  <section class="about">
+    <h2>Über mich</h2>
+    <p><strong>Name:</strong> Pilli Mohamed</p>
+    <p><strong>Matrikelnummer:</strong>8052091</p>
+    <p><strong>Kurs:</strong> Webprogrammierung</p>
+  </section>
+
+  <footer>
+    <p>&copy; <span id="jahr"></span> Mein Portfolio</p>
+  </footer>
+
+ <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Jahr im Footer setzen
+    const yearSpan = document.getElementById('jahr');
+    if (yearSpan) {
+      yearSpan.textContent = new Date().getFullYear();
+    }
+
+    // === Interaktives Beispiel: Link erzeugen ===
+    // Button:   id="linkButton"
+    // Ausgabe:  id="linkOutput"
+    const linkBtn = document.getElementById('linkButton');
+    if (linkBtn) {
+      linkBtn.addEventListener('click', () => {
+        const output = document.getElementById('linkOutput');
+        if (!output) return;
+
+        // Beispiel-Link dynamisch erzeugen
+        const a = document.createElement('a');
+        a.href = 'https://www.dhbw.de';
+        a.target = '_blank';
+        a.textContent = 'Zur DHBW-Webseite (neuer Tab)';
+
+        output.innerHTML = '';
+        output.appendChild(a);
+      });
+    }
+
+    // === Übung 2: countBs ===
+    const runScript3 = document.getElementById('runScript_3');
+    if (runScript3) {
+      runScript3.addEventListener('click', () => {
+        const outputBox = document.getElementById('output_3');
+        if (!outputBox) return;
+
+        // vorherige Ausgabe löschen
+        outputBox.innerHTML = '';
+
+        const inputString = prompt('Bitte geben Sie einen String ein:', '');
+
+        if (!inputString) {
+          outputBox.innerHTML = '<p>Abbruch eingegeben.</p>';
+          return;
+        }
+
+        // Hilfsfunktion: alle B/b zählen
+        const countBs = str =>
+          str.split('').filter(char => char.toLowerCase() === 'b').length;
+
+        const count = countBs(inputString);
+
+        outputBox.innerHTML =
+          `<p>Der String enthält <strong>${count}</strong> 'B' oder 'b'.</p>`;
+      });
+    }
+  });
+</script>
+</body>
+</html>

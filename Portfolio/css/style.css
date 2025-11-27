@@ -1,0 +1,331 @@
+/* ====== COLOR PALETTE ====== */
+:root {
+  --blue-darkest: #0A1931;   /* header, footer */
+  --blue-dark:    #1A3D63;   /* buttons etc. */
+  --blue-mid:     #4A7FA7;   /* cards */
+  --blue-light:   #B3CFE5;   /* highlight / accents */
+  --off-white:    #F6FAFD;   /* page background */
+}
+
+/* ====== GLOBAL LAYOUT ====== */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--off-white);
+  color: #102030;
+  font-size: 18px;          /* bigger text */
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+h1, h2, h3 {
+  margin-top: 0;
+}
+
+a {
+  color: var(--blue-dark);
+}
+
+/* ====== HERO (TOP BAR) ====== */
+.hero {
+  background-color: var(--blue-darkest);
+  color: #ffffff;
+  padding: 1.4rem 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* Main title (Startseite & Lektionen) */
+.hero h1 {
+  margin: 0;
+  font-size: 2.1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* “WebDev” link on lesson pages */
+.home-link {
+  align-self: flex-start;
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.9rem;     /* slightly bigger than h1 */
+  padding: 0.15rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.home-link:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* ====== STARTSEITE – LECTURE GRID ====== */
+.lecture-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 3rem;
+}
+
+.lecture-card {
+  background-color: var(--blue-mid);
+  color: #ffffff;
+  text-align: center;
+  padding: 1.6rem 0;
+  border-radius: 16px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  transition: transform 0.2s ease, background-color 0.25s ease;
+}
+
+.lecture-card:hover {
+  transform: translateY(-4px);
+  background-color: var(--blue-dark);
+}
+
+/* “Schwerpunkte” spans full width */
+.highlight {
+  grid-column: 1 / 4;
+  background-color: var(--blue-light);
+  color: var(--blue-darkest);
+}
+
+/* ====== LESSON PAGES – CONTENT AREA ====== */
+.lesson-content {
+  max-width: 1100px;
+  margin: 2.5rem auto 4rem;
+  padding: 0 3rem 4rem;
+}
+
+/* paragraphs & lists a bit looser */
+.lesson-content p,
+.lesson-content li {
+  font-size: 1rem;
+}
+
+/* ====== CODE / PRE BLOCKS ====== */
+pre {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid var(--blue-light);
+  padding: 0.9rem 1.1rem;
+  overflow-x: auto;
+  font-size: 0.95rem;
+}
+
+/* ====== TABLES (z.B. Konsole, Strings) ====== */
+.console-table,
+.string-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 1rem;
+  background-color: #ffffff;
+}
+
+.console-table th,
+.console-table td,
+.string-table th,
+.string-table td {
+  border: 1px solid var(--blue-light);
+  padding: 0.75rem 0.9rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.console-table th,
+.string-table th {
+  background-color: var(--blue-light);
+  color: var(--blue-darkest);
+  font-weight: 700;
+}
+
+/* ====== INTERACTIVE EXAMPLES ====== */
+.interactive-example {
+  margin: 1.5rem 0 2rem;
+}
+
+.console-output {
+  margin-top: 0.5rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid var(--blue-light);
+  background-color: #ffffff;
+  font-family: "Courier New", monospace;
+  font-size: 0.95rem;
+}
+
+/* ====== BUTTONS ====== */
+.btn,
+.btn-primary,
+.interactive-example button {
+  display: inline-block;
+  background-color: var(--blue-dark);
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.55rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.25s ease, transform 0.15s ease;
+}
+
+.btn:hover,
+.btn-primary:hover,
+.interactive-example button:hover {
+  background-color: var(--blue-darkest);
+  transform: translateY(-2px);
+}
+
+
+/* Nav buttons: immer sichtbar, ganz links / ganz rechts am Bildschirm */
+.nav-buttons {
+  position: fixed;              /* immer sichtbar */
+  bottom: 1.5rem;              
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: space-between;  /* Zurück links, Nächste rechts */
+  align-items: center;
+
+  padding: 0 6rem;              /* wie weit von den Bildschirmrändern weg */
+  margin-top: 3rem;             /* hier eigentlich egal bei fixed */
+
+  background: none;             /* keine große Leiste mehr, nur Buttons */
+  box-sizing: border-box;
+  z-index: 1000;                /* über dem Inhalt */
+}
+
+/* ====== WÄHRUNGSRECHNER CARD (Lektion 4) ====== */
+.card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  padding: 1.8rem 1.6rem;
+  margin: 1.5rem 0 2.5rem;
+}
+
+.currency-card h3 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 1.2rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+.form-group input[type="text"] {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--blue-light);
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: 0.3rem;
+}
+
+/* ====== ÜBER MICH ====== */
+.about {
+  max-width: 400px;
+  margin: 4rem auto 2rem;
+  text-align: center;
+  font-size: 1rem;
+  color: #0A1931;
+}
+
+.about h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* ====== FOOTER ====== */
+footer {
+  text-align: center;
+  background-color: var(--blue-darkest);
+  color: #ffffff;
+  padding: 0.9rem 0;
+  font-size: 0.9rem;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 900px) {
+  .lecture-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .highlight {
+    grid-column: 1 / 3;
+  }
+
+  .hero {
+    padding: 1rem 1.4rem 1.4rem;
+  }
+
+  .lesson-content {
+    padding: 0 1.5rem 3rem;
+  }
+
+  .nav-buttons {
+    padding: 0.7rem 1.5rem 0.9rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .lecture-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .highlight {
+    grid-column: auto;
+  }
+
+  .home-link {
+    font-size: 1.4rem;
+  }
+
+  .hero h1 {
+    font-size: 1.4rem;
+  }
+}
+.responsive-demo-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}

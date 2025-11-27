@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lektion 5 – JavaScript Objekte & Klassen</title>
+  <link rel="stylesheet" href="../css/style.css">
+
+  <!-- Kleine Zusatz-Styles nur für die Kontakte-Übung -->
+  <style>
+    #kontakt-uebung label {
+      display: block;
+      margin-top: 0.6rem;
+      font-weight: 600;
+    }
+
+    #kontakt-uebung input[type="text"],
+    #kontakt-uebung input[type="tel"],
+    #kontakt-uebung input[type="email"] {
+      width: 100%;
+      max-width: 450px;
+      padding: 0.5rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid var(--blue-light);
+      box-sizing: border-box;
+      font-size: 0.95rem;
+      margin-top: 0.2rem;
+    }
+
+    #kontakt-uebung button {
+      margin-top: 0.9rem;
+    }
+
+    .kontakt {
+      border: 1px solid var(--blue-light);
+      padding: 0.75rem 0.9rem;
+      margin: 0.4rem 0;
+      border-radius: 8px;
+      background-color: #ffffff;
+    }
+
+    .meta {
+      color: #555;
+      font-size: 0.9rem;
+      margin-top: 0.7rem;
+    }
+
+    .result {
+      margin-top: 0.6rem;
+      font-weight: 600;
+    }
+
+    .result.success {
+      color: green;
+    }
+
+    .result.error {
+      color: #b00020;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========= HEADER ========= -->
+  <header class="hero">
+    <a href="../index.html" class="home-link">Web Programming</a>
+    <h1>Lektion 5 – JavaScript Objekte & Klassen</h1>
+  </header>
+
+  <!-- ========= MAIN CONTENT ========= -->
+  <main class="lesson-content">
+
+    <!-- Einführung -->
+    <section>
+      <h2>Einführung</h2>
+      <p>
+        In dieser Vorlesung geht es um <strong>Objekte</strong> in JavaScript.
+        Jedes Element einer Webseite ist ein Objekt, und JavaScript stellt
+        viele vordefinierte Objekte bereit (z.&nbsp;B. <code>window</code>,
+        <code>document</code>, Formular­elemente). Du lernst:
+      </p>
+      <ul>
+        <li>was Objekte, Eigenschaften und Methoden sind,</li>
+        <li>wie man Objekte erzeugt (Konstruktor, Objekt-Literal, <code>class</code>),</li>
+        <li>wie JSON für Datentransfer genutzt wird,</li>
+        <li>wie <code>this</code> und <code>bind</code> funktionieren,</li>
+        <li>und was <em>Destructuring</em> und der <em>Spread Operator</em> sind.</li>
+      </ul>
+    </section>
+
+    <!-- Was sind Objekte? -->
+    <section>
+      <h2>Was sind Objekte?</h2>
+      <p>
+        Ein <strong>Objekt</strong> ist ein „Behälter“ mit:
+      </p>
+      <ul>
+        <li>einem <strong>Namen</strong>,</li>
+        <li><strong>Eigenschaften</strong> (Daten, z.&nbsp;B. <code>farbe</code>, <code>groesse</code>),</li>
+        <li><strong>Methoden</strong> (Funktionen, die mit diesen Daten arbeiten).</li>
+      </ul>
+      <p>
+        Eigenschaften und Methoden zusammen nennt man die <strong>Members</strong> eines Objekts.
+        Synonyme:
+      </p>
+      <ul>
+        <li>Eigenschaften = Attribute, Elemente</li>
+        <li>Methoden = Funktionen</li>
+      </ul>
+      <p>
+        Beispiel: Ein Auto-Objekt könnte die Eigenschaft <code>farbe = "rot"</code> haben
+        und eine Methode <code>fahre()</code>, die das Auto „bewegt“.
+      </p>
+    </section>
+
+    <!-- Eigenschaften & Methoden -->
+    <section>
+      <h2>Eigenschaften &amp; Methoden benutzen</h2>
+      <p>
+        Viele Datentypen in JavaScript werden selbst als Objekte behandelt.
+        Beispiel mit einem String:
+      </p>
+
+      <pre><code>// String anlegen
+var str = "JavaScript";
+
+// Auf Eigenschaft zugreifen
+var laenge = str.length;      // 10
+
+// Methode verwenden
+var pos = str.indexOf("Script"); // 4
+</code></pre>
+
+      <p>
+        <code>length</code> ist eine Eigenschaft, <code>indexOf()</code> ist eine Methode.
+        Zugriff erfolgt über den Punktoperator: <code>objekt.member</code>.
+      </p>
+    </section>
+
+    <!-- Objekte erzeugen -->
+    <section>
+      <h2>Objekte erzeugen</h2>
+
+      <h3>1. Mit <code>new Object()</code></h3>
+      <pre><code>// leeres Objekt erzeugen
+var person1 = new Object();
+
+// dynamisch Eigenschaften hinzufügen
+person1.name = "Fred";
+person1.begruesung = function () {
+  alert("Hallo " + this.name + "!");
+};
+
+// Methode aufrufen
+person1.begruesung();
+</code></pre>
+
+      <h3>2. Objekt-Literale <code>{ }</code></h3>
+      <p>
+        Kürzere Schreibweise, besonders für einzelne Objekte im Browser:
+      </p>
+      <pre><code>var person2 = {
+  name: "Fred",
+  begruesung: function () {
+    alert("Hallo " + this.name + "!");
+  }
+};
+
+person2.begruesung();
+</code></pre>
+      <p>
+        Diese Schreibweise ist eng verwandt mit <strong>JSON</strong>.
+      </p>
+    </section>
+
+    <!-- JSON -->
+    <section>
+      <h2>JSON – JavaScript Object Notation</h2>
+      <p>
+        <strong>JSON</strong> ist ein Textformat, um Objekt­daten über ein Netzwerk
+        zu übertragen (z.&nbsp;B. Server → Browser). Wichtige Regeln:
+      </p>
+      <ul>
+        <li>Eigenschaftsnamen stehen in doppelten Anführungszeichen,</li>
+        <li>nur einfache Datenausdrücke (keine Funktionen),</li>
+        <li>keine Kommentare.</li>
+      </ul>
+
+      <pre><code>// JavaScript-Objekt
+const employee = {
+  firstName: "Jane",
+  lastName: "Doe",
+  active: true
+};
+
+// In JSON-String umwandeln
+const jsonText = JSON.stringify(employee);
+
+// JSON-String wieder in Objekt umwandeln
+const parsed = JSON.parse(jsonText);
+console.log(parsed.firstName); // "Jane"
+</code></pre>
+    </section>
+
+    <!-- Konstruktorfunktionen & Klassen -->
+    <section>
+      <h2>Konstruktorfunktionen &amp; Klassen</h2>
+
+      <h3>Konstruktorfunktion</h3>
+      <p>
+        Mit einer Funktion können mehrere ähnliche Objektinstanzen erzeugt werden:
+      </p>
+
+      <pre><code>function Person(name) {
+  this.name = name;
+  this.begruesung = function () {
+    alert("Hallo " + this.name + "!");
+  };
+}
+
+var p1 = new Person("Anna");
+var p2 = new Person("Lukas");
+
+p1.begruesung();
+</code></pre>
+
+      <h3>Klassen (ES6)</h3>
+      <p>
+        Moderne Schreibweise mit <code>class</code>:
+      </p>
+
+      <pre><code>class Hund {
+  constructor() {
+    this.type = "Dackel";
+  }
+
+  printType() {
+    console.log(this.type);
+  }
+}
+
+let hund = new Hund();
+hund.printType(); // "Dackel"
+</code></pre>
+    </section>
+
+    <!-- this & bind -->
+    <section>
+      <h2><code>this</code> &amp; <code>bind</code></h2>
+      <p>
+        Innerhalb einer Methode verweist <code>this</code> auf das aktuelle Objekt.
+        Wird eine Methode jedoch „losgelöst“ weitergegeben, geht der Bezug verloren:
+      </p>
+
+      <pre><code>let hund = new Hund();
+let func = hund.printType;
+func();          // → undefined, this ist verloren
+</code></pre>
+
+      <p>Mit <code>bind</code> kann der Kontext fest verknüpft werden:</p>
+
+      <pre><code>let funcGebunden = hund.printType.bind(hund);
+funcGebunden();  // → "Dackel"</code></pre>
+
+      <p>
+        Alternativ können in Klassen Pfeilfunktionen verwendet werden – diese
+        binden <code>this</code> automatisch.
+      </p>
+    </section>
+
+    <!-- Destructuring & Spread -->
+    <section>
+      <h2>Object Destructuring &amp; Spread Operator</h2>
+
+      <h3>Destructuring</h3>
+      <p>
+        Mit <strong>Destructuring</strong> lassen sich Werte bequem aus Arrays
+        und Objekten „herauslösen“:
+      </p>
+
+      <pre><code>// Array-Destructuring
+let [a, b, ...rest] = [44, 67, 90, 56, 877];
+console.log(a);     // 44
+console.log(rest);  // [90, 56, 877]
+
+// Objekt-Destructuring
+let person = { name: "Maier", nachname: "Müller", alter: 30 };
+let { name, ...restObj } = person;
+console.log(name);     // "Maier"
+console.log(restObj);  // { nachname: "Müller", alter: 30 }</code></pre>
+
+      <h3>Spread Operator</h3>
+      <p>
+        Der <strong>Spread Operator</strong> <code>...</code> kombiniert Arrays
+        oder Objekte und erzeugt dabei neue Kopien:
+      </p>
+
+      <pre><code>// Arrays kombinieren
+let tiere1 = ["Hund", "Katze", "Kuh"];
+let tiere2 = ["Löwe", "Maus", "Ratte"];
+let alleTiere = [...tiere1, ...tiere2];
+
+// Objekte kombinieren
+const morgens = { fruehstueck: "Brot", brunch: "Brezel" };
+const mahlzeiten = { ...morgens, mittag: "Pizza" };
+</code></pre>
+    </section>
+
+    <!-- Interaktives Beispiel 1 -->
+    <section>
+      <h2>Interaktives Beispiel: Begrüßungs-Objekt</h2>
+      <p>
+        Hier erzeugen wir per Knopfdruck ein <code>Person</code>-ähnliches Objekt mit einer
+        Begrüßungsmethode und zeigen den Begrüßungstext an.
+      </p>
+
+      <div class="interactive-example">
+        <label for="nameInput"><strong>Name eingeben:</strong></label><br>
+        <input type="text" id="nameInput" placeholder="z.B. Anna">
+        <button id="greetBtn" class="btn btn-primary">
+          Objekt erzeugen &amp; begrüßen
+        </button>
+
+        <h4>Ausgabe</h4>
+        <div id="objektOutput" class="console-output">
+          // Hier wird die Begrüßung erscheinen
+        </div>
+      </div>
+    </section>
+
+    <!-- Interaktives Beispiel 2 -->
+    <section>
+      <h2>Interaktives Beispiel: JSON parsen</h2>
+      <p>
+        Dieses Beispiel zeigt, wie ein JSON-String in ein Objekt umgewandelt
+        und dann auf dem Bildschirm ausgegeben wird.
+      </p>
+
+      <div class="interactive-example">
+        <button id="jsonBtn" class="btn btn-primary">JSON laden</button>
+
+        <h4>Ausgabe</h4>
+        <div id="jsonOutput" class="console-output">
+          // Hier werden die JSON-Daten erscheinen
+        </div>
+      </div>
+    </section>
+
+    <!-- Übung: Kontakte-Klasse (Beschreibung + Formular) -->
+    <section id="kontakt-uebung">
+      <h2>Übung: Kontakte-Klasse</h2>
+      <p>
+        Unten sehen Sie eine Beispiel-Implementierung einer
+        <code>Kontakt</code>-Klasse mit privaten Eigenschaften, einer statischen
+        Zählvariable <code>gesamtZahl</code> und der Methode
+        <code>checkUser()</code>.
+      </p>
+
+      <!-- Formular zum Erstellen -->
+      <div class="card" id="formular">
+        <h3>Neuen Kontakt anlegen</h3>
+
+        <label>Vorname
+          <input id="vorname" type="text" placeholder="Anna" />
+        </label>
+
+        <label>Nachname
+          <input id="nachname" type="text" placeholder="Mann" />
+        </label>
+
+        <label>Telefon (mobil)
+          <input id="telefon" type="tel" placeholder="02124392" />
+        </label>
+
+        <label>E-Mail
+          <input id="email" type="email" placeholder="myemail@example.com" />
+        </label>
+
+        <button id="erstellen" class="btn btn-primary">Kontakt erstellen</button>
+      </div>
+
+      <!-- CheckUser-Formular -->
+      <div class="card" id="checkForm" style="margin-top:20px;">
+        <h3>Kontakt prüfen</h3>
+
+        <label>Vorname
+          <input id="checkVorname" type="text" placeholder="Max" />
+        </label>
+
+        <label>Nachname
+          <input id="checkNachname" type="text" placeholder="Mustermann" />
+        </label>
+
+        <button id="checkBtn" class="btn btn-primary">Prüfen</button>
+
+        <div id="checkResult" class="result"></div>
+      </div>
+
+      <!-- Status -->
+      <div id="status" class="meta">
+        <div>Gesamtanzahl Kontakte: <span id="gesamt">0</span></div>
+      </div>
+
+      <!-- Liste -->
+      <div class="card" id="liste" style="margin-top: 1rem;">
+        <h3>Erstellte Kontakte</h3>
+        <div id="kontakteListe"></div>
+      </div>
+    </section>
+
+    <!-- NAVIGATION -->
+    <div class="nav-buttons">
+      <a href="lektion4.html" class="btn back">← Zurück</a>
+      <a href="lektion6.html" class="btn next">Nächste Lektion →</a>
+    </div>
+  </main>
+
+  <!-- ========= ÜBER MICH ========= -->
+  <section class="about">
+    <h2>Über mich</h2>
+    <p><strong>Name:</strong> Pilli Mohamed</p>
+    <p><strong>Matrikelnummer:</strong>8052091</p>
+    <p><strong>Kurs:</strong> Webprogrammierung</p>
+  </section>
+
+  <!-- ========= FOOTER ========= -->
+  <footer>
+    <p>&copy; <span id="jahr"></span> Mein Portfolio</p>
+  </footer>
+
+  <!-- ========= SCRIPT ========= -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Jahr im Footer
+      document.getElementById("jahr").textContent = new Date().getFullYear();
+
+      /* ===== Interaktives Beispiel 1: Begrüßungs-Objekt ===== */
+      const nameInput = document.getElementById("nameInput");
+      const greetBtn  = document.getElementById("greetBtn");
+      const objektOut = document.getElementById("objektOutput");
+
+      if (greetBtn) {
+        greetBtn.addEventListener("click", () => {
+          const name = nameInput.value.trim();
+          if (!name) {
+            objektOut.textContent = "Bitte einen Namen eingeben.";
+            return;
+          }
+
+          const person = {
+            name: name,
+            begruesung() {
+              return "Hallo " + this.name + " – schön, dass du hier bist!";
+            }
+          };
+
+          objektOut.textContent = person.begruesung();
+        });
+      }
+
+      /* ===== Interaktives Beispiel 2: JSON parsen ===== */
+      const jsonBtn = document.getElementById("jsonBtn");
+      const jsonOut = document.getElementById("jsonOutput");
+
+      if (jsonBtn) {
+        jsonBtn.addEventListener("click", () => {
+          const jsonText =
+            '{"title":"Eloquent JavaScript","author":"Marijn Haverbeke","pages":472}';
+
+          const book = JSON.parse(jsonText);
+
+          jsonOut.textContent =
+            "Buchtitel: " + book.title +
+            " | Autor: " + book.author +
+            " | Seiten: " + book.pages;
+        });
+      }
+
+      /* ===== KONTAKT-KLASSE & ÜBUNG ===== */
+      class Kontakt {
+        static gesamtZahl = 0;
+        #id; #vorname; #nachname; #telefon; #email;
+
+        constructor(vorname = '', nachname = '', telefon = '', email = '') {
+          Kontakt.gesamtZahl++;
+          this.#id = Kontakt.gesamtZahl;
+          this.#vorname = vorname;
+          this.#nachname = nachname;
+          this.#telefon = telefon;
+          this.#email = email;
+        }
+
+        get id() { return this.#id; }
+        get vorname() { return this.#vorname; }
+        get nachname() { return this.#nachname; }
+        get telefon() { return this.#telefon; }
+        get email() { return this.#email; }
+
+        set vorname(v) { this.#vorname = String(v); }
+        set nachname(v) { this.#nachname = String(v); }
+        set telefon(v) { this.#telefon = String(v); }
+        set email(v) { this.#email = String(v); }
+
+        checkUser(vorname, nachname) {
+          return (
+            this.#vorname.toLowerCase() === String(vorname).toLowerCase() &&
+            this.#nachname.toLowerCase() === String(nachname).toLowerCase()
+          );
+        }
+
+        toDisplayObject() {
+          return {
+            id: this.#id,
+            vorname: this.#vorname,
+            nachname: this.#nachname,
+            telefon: this.#telefon,
+            email: this.#email
+          };
+        }
+      }
+
+      const kontaktArray     = [];
+      const vornameInputK    = document.getElementById('vorname');
+      const nachnameInputK   = document.getElementById('nachname');
+      const telefonInputK    = document.getElementById('telefon');
+      const emailInputK      = document.getElementById('email');
+      const erstellenBtn     = document.getElementById('erstellen');
+      const gesamtSpan       = document.getElementById('gesamt');
+      const kontakteListeDiv = document.getElementById('kontakteListe');
+      const checkBtn         = document.getElementById('checkBtn');
+      const checkVorname     = document.getElementById('checkVorname');
+      const checkNachname    = document.getElementById('checkNachname');
+      const checkResult      = document.getElementById('checkResult');
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function aktualisiereAnzeige() {
+        gesamtSpan.textContent = Kontakt.gesamtZahl;
+        kontakteListeDiv.innerHTML = '';
+        kontaktArray.forEach(k => {
+          const d = k.toDisplayObject();
+          const el = document.createElement('div');
+          el.className = 'kontakt';
+          el.innerHTML = `
+<strong>${escapeHtml(d.vorname)} ${escapeHtml(d.nachname)}</strong>
+<div>ID: ${d.id}</div>
+<div>Tel: ${escapeHtml(d.telefon)}</div>
+<div>Email: ${escapeHtml(d.email)}</div>
+          `;
+          kontakteListeDiv.appendChild(el);
+        });
+      }
+
+      if (erstellenBtn) {
+        erstellenBtn.addEventListener('click', () => {
+          const v = vornameInputK.value.trim();
+          const n = nachnameInputK.value.trim();
+          const t = telefonInputK.value.trim();
+          const e = emailInputK.value.trim();
+
+          if (!v || !n) {
+            alert('Vorname und Nachname sind erforderlich.');
+            return;
+          }
+
+          const neu = new Kontakt(v, n, t, e);
+          kontaktArray.push(neu);
+          aktualisiereAnzeige();
+
+          vornameInputK.value =
+            nachnameInputK.value =
+            telefonInputK.value =
+            emailInputK.value = '';
+        });
+      }
+
+      if (checkBtn) {
+        checkBtn.addEventListener('click', () => {
+          const v = checkVorname.value.trim();
+          const n = checkNachname.value.trim();
+
+          if (!v || !n) {
+            checkResult.textContent = 'Bitte beide Felder ausfüllen.';
+            checkResult.className = 'result error';
+            return;
+          }
+
+          const matches = kontaktArray.filter(k => k.checkUser(v, n));
+
+          if (matches.length === 0) {
+            checkResult.textContent = 'Kein Kontakt gefunden.';
+            checkResult.className = 'result error';
+          } else {
+            checkResult.textContent =
+              'Gefunden: ' +
+              matches
+                .map(k => k.vorname + ' ' + k.nachname + ' (ID:' + k.id + ')')
+                .join(', ');
+            checkResult.className = 'result success';
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

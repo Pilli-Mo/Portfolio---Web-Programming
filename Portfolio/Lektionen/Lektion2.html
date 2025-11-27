@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lektion 2 – Grundlagen der JavaScript-Syntax</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="hero">
+    <a href="../index.html" class="home-link">Web Programming</a>
+    <h1>Lektion 2 – Grundlagen der JavaScript-Syntax</h1>
+  </header>
+
+  <!-- LESSON CONTENT -->
+  <main class="lesson-content">
+
+    <!-- INTRODUCTION -->
+    <section>
+      <h2>Einführung</h2>
+      <p>
+        Willkommen zur zweiten Vorlesung im Modul <strong>Webdevelopment</strong>!
+        In dieser Einheit behandeln wir die Grundlagen der JavaScript-Syntax – von
+        Entwicklungsumgebungen über Variablen, Datentypen, Kontrollstrukturen,
+        Arrays, Objekte, Funktionen bis hin zu höheren Funktionen.
+      </p>
+    </section>
+
+    <!-- WEBBROWSER -->
+    <section>
+      <h2>Was macht der Webbrowser?</h2>
+      <ul>
+        <li>Der Server <em>serviert</em> Webseiten und sendet sie an den Browser.</li>
+        <li>Der Browser ruft die Seite ab und zeigt die HTML-Struktur an.</li>
+      </ul>
+    </section>
+
+    <!-- HTML -->
+    <section>
+      <h2>HTML – HyperText Markup Language</h2>
+      <ul>
+        <li>Strukturiert Webseiten und beschreibt deren Inhalt.</li>
+        <li>Übersetzt Tags und deren Inhalt in sichtbare Elemente.</li>
+        <li>Überschriften reichen von <code>&lt;h1&gt;</code> bis <code>&lt;h6&gt;</code>.</li>
+        <li>Kommentare: <code>&lt;!-- Dies ist ein Kommentar --&gt;</code></li>
+        <li>Manche Elemente (z.&nbsp;B. <code>&lt;img&gt;</code>) besitzen kein End-Tag.</li>
+      </ul>
+    </section>
+
+    <!-- CSS -->
+    <section>
+      <h2>CSS – Cascading Style Sheets</h2>
+      <p>CSS verleiht HTML-Seiten Stil und Layout.</p>
+      <pre><code>p {
+  background-color: yellow;
+  color: blue;
+  border: 1px solid black;
+}</code></pre>
+      <p>
+        Wird im <code>&lt;head&gt;</code>-Bereich mit dem Element
+        <code>&lt;style type="text/css"&gt;</code> oder über externe Stylesheets eingefügt.
+      </p>
+    </section>
+
+    <!-- ENTWICKLUNGSUMGEBUNG -->
+    <section>
+      <h2>Entwicklungsumgebung</h2>
+      <ul>
+        <li><strong>Visual Studio Code:</strong> Open Source, plattformunabhängig und erweiterbar.</li>
+        <li><strong>Alternativen:</strong> Atom, Brackets, Notepad++, Bbedit.</li>
+        <li><strong>Node.js:</strong> Führt JavaScript serverseitig aus.</li>
+      </ul>
+    </section>
+
+    <!-- VARIABLEN UND DATENTYPEN -->
+    <section>
+      <h2>JavaScript – Variablen und Datentypen</h2>
+      <ul>
+        <li>Dynamisch typisiert – Variablen können ihren Typ ändern.</li>
+        <li>Kann verwendet werden, um Textinhalte oder Layouts einer Seite zu verändern.</li>
+      </ul>
+      <pre><code>&lt;script src="verzeichnis/datei.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h3>Variablendeklarationen</h3>
+      <ul>
+        <li><strong>let:</strong> Lokaler Gültigkeitsbereich (empfohlen)</li>
+        <li><strong>var:</strong> Global oder lokal (veraltet)</li>
+        <li><strong>const:</strong> Konstante Werte</li>
+      </ul>
+      <p>
+        <strong>Datentypen:</strong> Number, String, Boolean, Object, null, undefined
+      </p>
+    </section>
+
+    <!-- WERTE, TYPEN, OPERATOR EN -->
+    <section>
+      <h2>Werte, Typen und Operatoren</h2>
+      <ul>
+        <li>Arithmetische Operatoren: <code>+, -, *, /</code></li>
+        <li>Vergleichsoperatoren: <code>==, ===, !=, !==</code></li>
+        <li>Logische Operatoren: <code>&amp;&amp;, ||, !</code></li>
+      </ul>
+      <pre><code>let a = 5;
+let b = 10;
+console.log(a + b); // Ausgabe: 15</code></pre>
+    </section>
+
+    <!-- KONTROLLSTRUKTUREN -->
+    <section>
+      <h2>Kontrollstrukturen</h2>
+      <ul>
+        <li><strong>if, else, else if:</strong> Bedingte Anweisungen</li>
+        <li><strong>for, while, do-while:</strong> Schleifen</li>
+      </ul>
+      <pre><code>for (let i = 1; i &lt;= 5; i++) {
+  console.log(i); // Ausgabe von 1 bis 5
+}</code></pre>
+    </section>
+
+    <!-- KONSOLENAUSGABEN -->
+    <section>
+      <h2>Kontrollausgaben in der Konsole</h2>
+      <table class="console-table">
+        <tr><th>Methode</th><th>Beschreibung</th></tr>
+        <tr><td><code>console.clear()</code></td><td>Bereinigt die Konsole.</td></tr>
+        <tr><td><code>console.debug()</code></td><td>Debugging-Informationen.</td></tr>
+        <tr><td><code>console.error()</code></td><td>Fehlermeldung.</td></tr>
+        <tr><td><code>console.info()</code></td><td>Allgemeine Informationen.</td></tr>
+        <tr><td><code>console.log()</code></td><td>Standardausgabe.</td></tr>
+        <tr><td><code>console.trace()</code></td><td>Stack-Trace.</td></tr>
+        <tr><td><code>console.warn()</code></td><td>Warnmeldung.</td></tr>
+      </table>
+    </section>
+
+    <!-- ARRAYS -->
+    <section>
+      <h2>Arrays</h2>
+      <pre><code>const fruits = ['Apple', 'Banana', 'Cherry'];
+console.log(fruits[0]); // 'Apple'
+
+fruits.push('Grapes');
+console.log(fruits); // ['Apple', 'Banana', 'Cherry', 'Grapes']</code></pre>
+    </section>
+
+    <!-- STRINGS -->
+    <section>
+      <h2>String-Verkettung</h2>
+      <pre><code>let greeting = "Good";
+let timeOfDay = "Morning";
+let result = greeting + " " + timeOfDay; // "Good Morning"</code></pre>
+    </section>
+
+    <!-- OBJEKTE -->
+    <section>
+      <h2>Objekte</h2>
+      <pre><code>const book = {
+  title: '1984',
+  author: 'George Orwell',
+  pages: 328,
+  read: function() {
+    console.log('Reading 1984...');
+  }
+};
+console.log(book.title);
+book.title = 'Animal Farm';</code></pre>
+    </section>
+
+    <!-- FUNKTIONEN -->
+    <section>
+      <h2>Funktionen</h2>
+
+      <h3>Traditionelle Definition</h3>
+      <pre><code>function add(a, b) {
+  return a + b;
+}</code></pre>
+
+      <h3>Pfeilfunktionen (ES6)</h3>
+      <pre><code>const add = (a, b) => a + b;</code></pre>
+
+      <h3>Pure Function</h3>
+      <pre><code>const double = (x) => x * 2;</code></pre>
+    </section>
+
+    <!-- HÖHERE FUNKTIONEN -->
+    <section>
+      <h2>Höhere Funktionen</h2>
+      <pre><code>const numbers = [1, 2, 3];
+const doubled = numbers.map((n) => n * 2);
+console.log(doubled); // [2, 4, 6]</code></pre>
+    </section>
+
+    <!-- ÜBUNG 1: STERN-DREIECK -->
+    <section>
+      <h2>Übung 1: Stern-Dreieck</h2>
+      <p>Schreiben Sie ein Programm, das mit geschachtelten Schleifen ein Stern-Dreieck erzeugt.</p>
+
+      <div class="interactive-example">
+        <button id="runScript_2" class="btn btn-primary">
+          Testen Sie den Code (Stern-Dreieck)
+        </button>
+        <p class="info">
+          Geben Sie eine Zahl ein, um das Stern-Dreieck zu erzeugen:
+        </p>
+
+        <h4>Console-Ausgabe</h4>
+        <div id="output_2" class="console-output">// Hier wird die Ausgabe erscheinen</div>
+      </div>
+    </section>
+
+
+    <!-- NAVIGATION BUTTONS (fixed via CSS) -->
+    <div class="nav-buttons">
+      <a href="../index.html" class="btn back">← Zurück zur Startseite</a>
+      <a href="lektion3.html" class="btn next">Nächste Lektion →</a>
+    </div>
+
+  </main>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <h2>Über mich</h2>
+    <p><strong>Name:</strong> Pilli Mohamed</p>
+    <p><strong>Matrikelnummer:</strong>8052091</p>
+    <p><strong>Kurs:</strong> Webprogrammierung</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; <span id="jahr"></span> Mein Portfolio</p>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('jahr').textContent = new Date().getFullYear();
+
+      // Übung 1: Stern-Dreieck
+      const runScript_2 = document.getElementById('runScript_2');
+      if (runScript_2) {
+        runScript_2.addEventListener('click', () => {
+          const outputBox = document.getElementById('output_2');
+          outputBox.innerHTML = ''; // vorherige Ausgabe löschen
+
+          let eingabe = prompt("Bitte geben Sie die Anzahl der Zeilen ein:", "");
+          if (!eingabe) {
+            outputBox.innerHTML = "<p>Abbruch eingegeben.</p>";
+          } else {
+            let result = "";
+            for (let i = 1; i <= eingabe; i++) {
+              result += "*".repeat(i) + "<br>";
+            }
+            outputBox.innerHTML = `<pre>${result}</pre>`;
+          }
+        });
+      }
+
+      // Übung 2: countBs
+      const runScript_3 = document.getElementById('runScript_3');
+      if (runScript_3) {
+        runScript_3.addEventListener('click', () => {
+          const outputBox = document.getElementById('output_3');
+          outputBox.innerHTML = ''; // vorherige Ausgabe löschen
+
+          let inputString = prompt("Bitte geben Sie einen String ein:", "");
+          if (!inputString) {
+            outputBox.innerHTML = "<p>Abbruch eingegeben.</p>";
+          } else {
+            const countBs = str =>
+              str.split("").filter(char => char.toLowerCase() === "b").length;
+            let count = countBs(inputString);
+            outputBox.innerHTML =
+              `<p>Der String enthält <strong>${count}</strong> 'B' oder 'b'.</p>`;
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lektion 1 – Einführung in JavaScript</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="hero">
+    <a href="../index.html" class="home-link">Web Programming</a>
+    <h1>Lektion 1 – Einführung in JavaScript</h1>
+  </header>
+
+  <!-- LESSON CONTENT -->
+  <main class="lesson-content">
+
+    <!-- INTRODUCTION -->
+    <section class="summary">
+      <h2>Einführung</h2>
+      <p>
+        Willkommen zur ersten Vorlesung! In dieser Lektion geht es um die
+        <strong>Grundlagen von Web und Server</strong>. Du lernst, wie das
+        <strong>Client-Server-Modell</strong> funktioniert, wie <strong>Datenbanken</strong>
+        eingebunden werden, wie HTML-Dokumente erzeugt werden und welche
+        <strong>Rollen JavaScript</strong> und Skriptsprachen in modernen
+        Webanwendungen spielen.
+      </p>
+    </section>
+
+    <!-- EINBEISPIEL -->
+    <section class="example">
+      <h2>Einführungsbeispiel: Client &amp; Server</h2>
+
+      <div class="lesson-image">
+        <img src="../assets/img/client-Server.png" alt="Client-Server-Diagramm">
+        <p class="img-caption">
+          Abbildung: Vereinfachte Darstellung einer Internetverbindung zwischen Client und Server
+        </p>
+      </div>
+
+      <p>
+        Das Internet basiert auf einer Kommunikation zwischen
+        <strong>Client</strong> und <strong>Server</strong>. Der Client sendet eine
+        Anfrage an den Server – dieser verarbeitet sie, ruft ggf. Daten aus einer
+        Datenbank ab, generiert ein passendes HTML-Dokument und schickt dieses an
+        den Browser des Nutzers zurück.
+      </p>
+
+      <ul>
+        <li>Es wäre unmöglich, für jeden möglichen Suchbegriff eine fertige HTML-Datei zu speichern.</li>
+        <li>Stattdessen liegen alle Informationen in einer <strong>Datenbank</strong>.</li>
+        <li>Die Datenbank liefert eine Liste von Treffern zurück.</li>
+        <li>Der <strong>Server</strong> erzeugt daraus ein HTML-Dokument und sendet es an den <strong>Client</strong>.</li>
+      </ul>
+    </section>
+
+    <!-- SERVERSEITIGE VERARBEITUNG -->
+    <section class="server">
+      <h2>Serverseitige Verarbeitung</h2>
+
+      <div class="lesson-image">
+        <img src="../assets/img/Serverseitige-Verarbeitung.png" alt="Serverseitige-Verarbeitung-Diagramm">
+        <p class="img-caption">
+          Abbildung: Serverseitige Verarbeitung mit Anbindung einer Datenbank
+        </p>
+      </div>
+
+      <p>
+        Serverseitige Verarbeitung bedeutet, dass die Logik auf dem Server ausgeführt wird –
+        oft mit direkter Anbindung an eine Datenbank. Häufig eingesetzte Programmiersprachen
+        für diesen Zweck sind:
+      </p>
+
+      <ul>
+        <li><strong>PHP</strong></li>
+        <li><strong>Perl</strong></li>
+        <li><strong>Java</strong> (z.&nbsp;B. Servlets)</li>
+      </ul>
+
+      <p>
+        Diese Programmiersprachen ermöglichen es, Anfragen zu verarbeiten, Daten zu manipulieren
+        und dynamische Webseiten zu generieren.
+      </p>
+    </section>
+
+    <!-- CLIENTSEITIGE VERARBEITUNG -->
+    <section class="client">
+      <h2>Clientseitige Verarbeitung</h2>
+
+      <div class="lesson-image">
+        <img src="../assets/img/Clientseitige-Verarbeitung.png" alt="Clientseitige-Verarbeitung-Diagramm">
+        <p class="img-caption">Abbildung: Clientseitige Verarbeitung</p>
+      </div>
+
+      <p>
+        Die <strong>Client-seitige Verarbeitung</strong> findet im Browser des Nutzers statt.
+        Hier wird JavaScript verwendet, um die Oberfläche interaktiv zu gestalten, Eingaben zu
+        prüfen oder Inhalte dynamisch zu verändern.
+      </p>
+
+      <ul>
+        <li>Echtzeit-Validierung von Formularen</li>
+        <li>Animationen oder Pop-up-Fenster</li>
+        <li>Interaktive Navigationselemente</li>
+      </ul>
+    </section>
+
+    <!-- SOFTWARE-ARCHITEKTUR -->
+    <section class="architektur">
+      <h2>Software-Architektur von Webanwendungen</h2>
+
+      <h3>Client-seitige Programmierung („Rich Client“)</h3>
+      <div class="lesson-image">
+        <img src="../assets/img/Rich-thick Client.png" alt="Rich-thick Client-Diagramm">
+        <p class="img-caption">Abbildung: Client-seitig – Rich-thick Client</p>
+      </div>
+      <p>
+        Die gesamte Logik läuft im Browser.<br>
+        <strong>Vorteile:</strong> Technische Umgebung des Benutzers kann berücksichtigt werden.<br>
+        <strong>Nachteile:</strong> Der Nutzer kann Code deaktivieren.
+      </p>
+
+      <h3>Server-seitige Programmierung</h3>
+      <div class="lesson-image">
+        <img src="../assets/img/gesamte Programmierung server-seitig.png"
+             alt="Gesamte Programmierung server-seitig – Diagramm">
+        <p class="img-caption">
+          Abbildung: Software-Architektur von Webanwendungen – gesamte Programmierung server-seitig
+        </p>
+      </div>
+      <p>
+        Anzeige und Dokument im Webclient → Interaktion mit dem Webserver. Der Webserver interagiert
+        mit Java Servlets, CGI-Anwendungen und PHP-Anwendungen.<br>
+        <strong>Vorteile:</strong> Man ist nicht darauf angewiesen, dass der Nutzer die clientseitige
+        Verarbeitung einschaltet.<br>
+        <strong>Nachteile:</strong> Technische Umgebung des Benutzers wird nicht berücksichtigt.
+      </p>
+
+      <h3>Erweiterung um Programme oder Skripte</h3>
+      <div class="lesson-image">
+        <img src="../assets/img/Erweiterung.png" alt="Erweiterung-Diagramm">
+        <p class="img-caption">
+          Abbildung: Software-Architektur – client-seitige und server-seitige Erweiterung um Programme oder Skripte
+        </p>
+      </div>
+      <p>
+        <strong>Beschreibung:</strong> Anzeige und Dokument im Webclient → Interaktion mit dem Webserver.
+        Der Webserver interagiert mit Java Servlets, CGI-Anwendungen und PHP-Anwendungen.
+      </p>
+      <ul>
+        <li><strong>Vorteile:</strong> Vorteile von Client- und Serverseitiger Verarbeitung können genutzt werden.</li>
+      </ul>
+    </section>
+
+    <!-- PROGRAMMIERSPRACHEN -->
+    <section class="languages">
+      <h2>Programmiersprachen und Skriptsprachen</h2>
+      <ul>
+        <li><strong>Programmiersprachen:</strong> Java, C++, C, Assembler, Fortran</li>
+        <li><strong>Auszeichnungssprachen:</strong> HTML, XML</li>
+        <li><strong>Skriptsprachen:</strong> PHP, Perl, JavaScript, Python, Ruby</li>
+      </ul>
+    </section>
+
+    <!-- ÜBERSETZUNG -->
+    <section class="translation">
+      <h2>Übersetzung von Programmiersprachen</h2>
+      <ul>
+        <li>Ein Übersetzer (Compiler) wandelt Quellcode in Maschinensprache um.</li>
+        <li>Zielsprache ist meist eine Prozessor- oder virtuelle Maschinensprache (z.&nbsp;B. JVM).</li>
+        <li>Übersetzte Sprachen besitzen eine starke statische Semantik.</li>
+      </ul>
+    </section>
+
+    <!-- INTERPRETATION -->
+    <section class="interpretation">
+      <h2>Interpretation von Sprachen</h2>
+      <ul>
+        <li>Ein Interpreter liest und führt ein Programm direkt aus.</li>
+        <li>Einfache Struktur, keine statische Semantik.</li>
+        <li>Typregeln werden erst bei der Ausführung geprüft.</li>
+        <li>Interpreter können plattformunabhängig bereitgestellt werden.</li>
+        <li>Interpretation ist oft langsamer als die Ausführung übersetzter Programme.</li>
+      </ul>
+    </section>
+
+    <!-- SKRIPTSPRACHEN -->
+    <section class="scripts">
+      <h2>Skriptsprachen</h2>
+      <ul>
+        <li>Einfache Aufgaben lösen.</li>
+        <li>Bestehende Funktionen kombinieren.</li>
+        <li>Leicht erlernbar und dynamisch typisiert.</li>
+        <li>Direkt interpretiert – keine Übersetzung nötig.</li>
+      </ul>
+    </section>
+
+    <!-- JAVASCRIPT -->
+    <section class="javascript">
+      <h2>JavaScript</h2>
+      <p>
+        JavaScript ist eine leichtgewichtige Skriptsprache, die speziell für HTML entwickelt wurde.
+        Sie wird direkt im Browser interpretiert und ermöglicht interaktive Webseiten (DHTML, Web&nbsp;2.0).
+      </p>
+
+      <h3>Einbindung von JavaScript</h3>
+      <pre><code>&lt;script type="text/javascript"&gt;
+  // JavaScript Code
+&lt;/script&gt;</code></pre>
+
+      <h3>Beispiel: Eine Meldung ausgeben</h3>
+      <pre><code>&lt;script type="text/javascript"&gt;
+  alert("Das ist JavaScript!");
+&lt;/script&gt;</code></pre>
+
+      <div class="interactive-example">
+        <button id="alertBtn" class="btn btn-primary">Alert auslösen</button>
+        <p class="info">
+          Klicke auf den Knopf, um das JavaScript-Beispiel in Aktion zu sehen.
+        </p>
+      </div>
+
+      <h3>Beispiel: Rechnen in JavaScript</h3>
+      <pre><code>&lt;script type="text/javascript"&gt;
+  alert(17 + 5 * 3);
+&lt;/script&gt;</code></pre>
+
+      <h3>Interaktivität durch Buttons</h3>
+      <pre><code>&lt;form&gt;
+  &lt;input type="button" value="Test" onclick="alert('Hallo!')"&gt;
+&lt;/form&gt;</code></pre>
+
+      <h3>Kommentare</h3>
+      <pre><code>// Einzeiliger Kommentar
+/* Mehrzeiliger Kommentar */</code></pre>
+
+      <h3>noscript-Tag</h3>
+      <p>
+        Falls JavaScript deaktiviert ist, kann der <code>&lt;noscript&gt;</code>-Tag Benutzer
+        informieren oder Alternativen anzeigen.
+      </p>
+    </section>
+
+    <!-- MERKE -->
+    <section class="note">
+      <h2>Merke</h2>
+      <blockquote>
+        JavaScript macht Webseiten lebendig – es verbindet die statische HTML-Struktur mit
+        dynamischem Verhalten.
+      </blockquote>
+    </section>
+
+    <!-- NAVIGATION BUTTONS (FIXED BY CSS) -->
+    <div class="nav-buttons">
+      <a href="../index.html" class="btn back">← Zurück zur Startseite</a>
+      <a href="lektion2.html" class="btn next">Nächste Lektion →</a>
+    </div>
+
+  </main>
+
+  <!-- ABOUT SECTION -->
+  <section class="about">
+    <h2>Über mich</h2>
+    <p><strong>Name:</strong> Pilli Mohamed</p>
+    <p><strong>Matrikelnummer:</strong>8052091</p>
+    <p><strong>Kurs:</strong> Webprogrammierung</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; <span id="jahr"></span> Mein Portfolio</p>
+  </footer>
+
+  <!-- FUNCTIONAL SCRIPT -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('jahr').textContent = new Date().getFullYear();
+
+      const alertBtn = document.getElementById('alertBtn');
+      if (alertBtn) {
+        alertBtn.addEventListener('click', () => {
+          alert("Das ist JavaScript!");
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

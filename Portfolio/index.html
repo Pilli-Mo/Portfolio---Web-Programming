@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Programming Portfolio</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <h1>Web Programming</h1>
+  </header>
+
+  <!-- LECTURE GRID -->
+  <main class="lecture-grid">
+    <a href="lektionen/lektion1.html" class="lecture-card">Lektion 1</a>
+    <a href="lektionen/lektion2.html" class="lecture-card">Lektion 2</a>
+    <a href="lektionen/lektion3.html" class="lecture-card">Lektion 3</a>
+    <a href="lektionen/lektion4.html" class="lecture-card">Lektion 4</a>
+    <a href="lektionen/lektion5.html" class="lecture-card">Lektion 5</a>
+    <a href="lektionen/lektion6.html" class="lecture-card">Lektion 6</a>
+    <a href="lektionen/Lektion7.html" class="lecture-card">Lektion 7</a>
+    <a href="lektionen/schwerpunkt.html" class="lecture-card highlight">Schwerpunkt</a>
+  </main>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <h2>Über mich</h2>
+    <p><strong>Name:</strong> Pilli Mohamed</p>
+    <p><strong>Matrikelnummer:</strong>8052091</p>
+    <p><strong>Kurs:</strong> Webprogrammierung</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; <span id="jahr"></span> Web Programming</p>
+  </footer>
+
+  <script>
+    document.getElementById('jahr').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

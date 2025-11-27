@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lektion 4 – Strings & Formulare</title>
+  <link rel="stylesheet" href="../css/style.css">
+
+  <!-- Page-specific styling: only extra bits, using blue palette -->
+  <style>
+    .string-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 2rem;
+      font-size: 0.95rem;
+      background-color: var(--off-white);
+    }
+
+    .string-table th,
+    .string-table td {
+      border: 1px solid var(--blue-light);
+      padding: 0.7rem 0.8rem;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .string-table th {
+      background-color: var(--blue-light);
+      color: var(--blue-darkest);
+      font-weight: 600;
+    }
+
+    .string-table code {
+      font-family: "Courier New", monospace;
+      background-color: #ffffff;
+      padding: 0 0.15rem;
+      border-radius: 3px;
+    }
+
+    .currency-card h3 {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 1.2rem;
+    }
+
+    .objects-list {
+      margin-top: 0.5rem;
+    }
+
+    .objects-list li {
+      margin-bottom: 0.2rem;
+    }
+
+    .result-label {
+      margin-top: 1.2rem;
+      margin-bottom: 0.35rem;
+      font-weight: 600;
+    }
+
+    #waehrungErgebnis {
+      width: 100%;
+      padding: 0.5rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid var(--blue-light);
+      background-color: #ffffff;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <a href="../index.html" class="home-link">Web Programming</a>
+    <h1>Lektion 4 – Strings &amp; Formulare</h1>
+  </header>
+
+  <main class="lesson-content">
+
+    <!-- INTRO -->
+    <section>
+      <h2>Einführung</h2>
+      <p>
+        In dieser Vorlesung haben wir zwei Themen vertieft:
+        <strong>Strings</strong> in JavaScript und die Verarbeitung von
+        <strong>Eingaben über Formulare</strong>. Strings ermöglichen die Arbeit mit
+        ganzen Zeichenketten, Formulare liefern Benutzereingaben, die im Skript
+        weiterverarbeitet werden können.
+      </p>
+    </section>
+
+    <!-- STRINGS -->
+    <section>
+      <h2>Strings</h2>
+      <p>
+        Ein String speichert eine komplette Zeichenkette, nicht nur ein einzelnes Zeichen
+        wie der Datentyp <code>char</code> in Java. Ein String kann z.&nbsp;B. so
+        initialisiert werden:
+      </p>
+
+      <pre><code>// String mit der Funktion "new String"
+var text = new String("Dies ist ein String");
+
+// Direkte Initialisierung
+var textTwo = "Dies ist ein weiterer String";</code></pre>
+
+      <p><strong>Wichtige Methoden für die Arbeit mit Strings:</strong></p>
+
+      <table class="string-table">
+        <thead>
+          <tr>
+            <th>Methode</th>
+            <th>Funktion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>charAt()</code></td>
+            <td>
+              Gibt das Zeichen an einer bestimmten Position zurück, z.&nbsp;B.
+              „Sein oder Nichtsein“. <br>
+              Beispiel:
+              <code>"Sein oder Nichtsein".charAt(0)</code> ergibt <code>"S"</code>.
+            </td>
+          </tr>
+          <tr>
+            <td><code>indexOf()</code></td>
+            <td>
+              Sucht einen Teilstring und gibt die Position des ersten Vorkommens zurück. <br>
+              Beispiel:
+              <code>"Sein oder Nichtsein".indexOf("ein")</code> ergibt <code>1</code>.<br>
+              Wenn der Teilstring nicht enthalten ist, gibt <code>indexOf()</code> <code>-1</code> zurück.
+            </td>
+          </tr>
+          <tr>
+            <td><code>lastIndexOf()</code></td>
+            <td>
+              Sucht einen Teilstring von hinten und gibt die Position zurück. <br>
+              Beispiel:
+              <code>"Sein oder Nichtsein".lastIndexOf("ein")</code> ergibt <code>13</code>.
+            </td>
+          </tr>
+          <tr>
+            <td><code>substring()</code></td>
+            <td>
+              Gibt einen bestimmten Teil eines Strings zurück. <br>
+              Beispiel:
+              <code>"Sein oder Nichtsein".substring(0, 9)</code> ergibt
+              <code>"Sein oder"</code>.
+            </td>
+          </tr>
+          <tr>
+            <td><code>split()</code></td>
+            <td>
+              Teilt einen String in ein Array von Teilstrings. <br>
+              Beispiel:
+              <code>"Sein oder Nichtsein".split(" ")</code> ergibt das Array
+              <code>["Sein", "oder", "Nichtsein"]</code>.
+            </td>
+          </tr>
+          <tr>
+            <td><code>length</code></td>
+            <td>
+              Gibt die Länge eines Strings zurück, inklusive Leerzeichen und Sonderzeichen. <br>
+              Beispiel:
+              <code>"Sein oder Nichtsein".length</code> ergibt <code>19</code>.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- FORMULARE -->
+    <section>
+      <h2>Eingaben über Formulare</h2>
+      <p>
+        Formulare werden in HTML mit dem Tag <code>&lt;form&gt;</code> erzeugt und enthalten
+        eine beliebige Anzahl von Formularelementen. Ein einfaches Beispiel:
+      </p>
+
+      <pre><code>&lt;form id="meinFormular" name="meinFormular"&gt;
+  &lt;p&gt;
+    &lt;input type="button" id="button1" name="button1" value="Button 1"&gt;
+    &lt;input type="button" id="button2" name="button2" value="Button 2"&gt;
+    &lt;input type="text"   id="eingabe1" name="eingabe1" value=""&gt;
+  &lt;/p&gt;
+&lt;/form&gt;</code></pre>
+
+      <p>
+        Der Zugriff auf Formulare kann z.&nbsp;B. über das
+        <code>forms</code>-Array oder über ID/Name erfolgen:
+      </p>
+
+      <pre><code>document.forms[0]                 // erstes Formular
+document.forms[1]                 // zweites Formular
+document.getElementById("meinFormular")</code></pre>
+
+      <p>
+        Ein Textfeld kann mit <code>document.getElementById("eingabe1").value</code>
+        ausgelesen werden.
+      </p>
+    </section>
+
+    <!-- OBJEKTE IN JAVASCRIPT / FORMULAROBJEKTE -->
+    <section>
+      <h2>Objekte in JavaScript</h2>
+      <p>
+        In JavaScript sind Objekte zentrale Elemente. Sie bestehen aus Eigenschaften
+        (Datenfeldern) und Methoden (Funktionen). Für HTML-Formulare spielen u.&nbsp;a.
+        folgende Objekttypen eine Rolle:
+      </p>
+      <ul class="objects-list">
+        <li><strong>Password-Objekt:</strong> maskierte Passworteingaben.</li>
+        <li><strong>Hidden-Objekt:</strong> unsichtbares Eingabefeld zum Zwischenspeichern von Daten.</li>
+        <li><strong>Button-Objekt:</strong> Button, der mit einem EventHandler (z.&nbsp;B. <code>onclick</code>) verknüpft ist.</li>
+        <li><strong>Submit-Objekt:</strong> schickt ein Formular ab.</li>
+        <li><strong>Reset-Objekt:</strong> setzt Formularwerte auf Standard zurück.</li>
+        <li><strong>Checkbox-Objekt:</strong> Option an- oder abwählen.</li>
+        <li><strong>Radio-Objekt:</strong> eine Option aus mehreren Möglichkeiten wählen.</li>
+        <li><strong>Option-Objekt:</strong> Eintrag in einem <code>&lt;select&gt;</code>-Dropdown.</li>
+      </ul>
+    </section>
+
+    <!-- WÄHRUNGSRECHNER -->
+    <section>
+      <div class="card currency-card">
+        <h3>Währungsumrechner</h3>
+
+        <form id="waehrungForm" onsubmit="return false;">
+          <div class="form-group">
+            <label for="betrag">Betrag eingeben:</label>
+            <input type="text" id="betrag" placeholder="z.B. 10,50">
+          </div>
+
+          <div class="form-group">
+            <label>Währung auswählen:</label>
+            <div class="radio-group">
+              <label>
+                <input type="radio" name="richtung" value="eur2usd" checked>
+                Euro zu US-Dollar
+              </label>
+              <label>
+                <input type="radio" name="richtung" value="usd2eur">
+                US-Dollar zu Euro
+              </label>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" id="berechnenBtn">Berechnen</button>
+
+          <div>
+            <div class="result-label">Ergebnis:</div>
+            <input type="text" id="waehrungErgebnis" readonly value="">
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- NAVIGATION -->
+    <div class="nav-buttons">
+      <a href="lektion3.html" class="btn back">← Zurück</a>
+      <a href="lektion5.html" class="btn next">Nächste Lektion →</a>
+    </div>
+  </main>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <h2>Über mich</h2>
+    <p><strong>Name:</strong> Pilli Mohamed</p>
+    <p><strong>Matrikelnummer:</strong>8052091</p>
+    <p><strong>Kurs:</strong> Webprogrammierung</p>
+  </section>
+
+  <footer>
+    <p>&copy; <span id="jahr"></span> Mein Portfolio</p>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      // Jahr im Footer
+      document.getElementById('jahr').textContent = new Date().getFullYear();
+
+      // Währungsumrechner
+      const berechnenBtn = document.getElementById("berechnenBtn");
+      const betragInput = document.getElementById("betrag");
+      const ergebnisFeld = document.getElementById("waehrungErgebnis");
+
+      if (berechnenBtn) {
+        berechnenBtn.addEventListener("click", () => {
+          let eingabe = betragInput.value.trim();
+
+          if (!eingabe) {
+            ergebnisFeld.value = "Bitte einen Betrag eingeben.";
+            return;
+          }
+
+          // Komma -> Punkt, damit JS rechnen kann
+          eingabe = eingabe.replace(",", ".");
+          let betrag = Number(eingabe);
+
+          if (isNaN(betrag)) {
+            ergebnisFeld.value = "Ungültige Zahl.";
+            return;
+          }
+
+          // Beispielkurs wie in der Übung
+          const kurs = 1.1;
+          const richtung = document.querySelector('input[name="richtung"]:checked').value;
+          let ergebnis;
+
+          if (richtung === "eur2usd") {
+            ergebnis = betrag * kurs;
+            ergebnisFeld.value =
+              betrag.toFixed(2).replace(".", ",") +
+              " € ≈ " +
+              ergebnis.toFixed(2).replace(".", ",") +
+              " $";
+          } else {
+            ergebnis = betrag / kurs;
+            ergebnisFeld.value =
+              betrag.toFixed(2).replace(".", ",") +
+              " $ ≈ " +
+              ergebnis.toFixed(2).replace(".", ",") +
+              " €";
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

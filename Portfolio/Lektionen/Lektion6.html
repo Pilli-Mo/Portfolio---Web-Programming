@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lektion 6 – DOM, jQuery & Events</title>
+  <link rel="stylesheet" href="../css/style.css">
+  
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <style>
+    .pullquote {
+      float: right;
+      clear: right;
+      width: 220px;
+      background: #F6FAFD;
+      border-left: 4px solid #0A1931;
+      padding: 10px;
+      margin: 15px 0 10px 20px;
+      font-style: italic;
+      font-size: 1rem;
+    }
+    .pq { font-weight: 600; }
+
+    .dom-tree {
+      background: #ffffff;
+      border: 1px solid var(--blue-light);
+      border-radius: 10px;
+      padding: 1rem;
+      white-space: pre;
+      font-family: monospace;
+      font-size: 0.9rem;
+      overflow-x: auto;
+    }
+
+    .green { color: green; font-weight: 700; }
+  </style>
+</head>
+
+<body>
+
+<header class="hero">
+  <a href="../index.html" class="home-link">Web Programming</a>
+  <h1>Lektion 6 – DOM, jQuery & Events</h1>
+</header>
+
+
+<main class="lesson-content">
+
+<!-- ========================================================= -->
+<!-- 1. DOM IN DETAIL -->
+<!-- ========================================================= -->
+<section>
+  <h2>1. DOM und JavaScript-Grundlagen</h2>
+
+  <p>
+    Das <strong>Document Object Model (DOM)</strong> ist die Baumstruktur, die der Browser aus einer HTML-Seite erstellt.
+    Jeder HTML-Tag wird zu einem Knoten: Elementknoten, Attributknoten, Textknoten.  
+    JavaScript kann diese Struktur:
+  </p>
+
+  <ul>
+    <li>auslesen</li>
+    <li>verändern (<em>manipulieren</em>)</li>
+    <li>neue Inhalte einfügen</li>
+    <li>Elemente entfernen</li>
+  </ul>
+
+  <h3>Wichtige DOM-Methoden</h3>
+  <ul>
+    <li><code>document.getElementById('id')</code> – Element per ID</li>
+    <li><code>document.getElementsByTagName('tag')</code> – alle gleichen Tags</li>
+    <li><code>element.childNodes</code> – Kindknoten</li>
+    <li><code>element.parentNode</code> – Elternknoten</li>
+    <li><code>element.nextSibling</code> / <code>previousSibling</code></li>
+  </ul>
+
+  <pre><code>// DOM-Auswahl & Änderung
+var u = document.getElementById('ueberschrift');
+u.innerHTML = "Hier war JavaScript im Spiel!";
+  </code></pre>
+
+  <pre><code>// Navigation
+var kinder = u.childNodes;
+var text = kinder[0].nodeValue;
+  </code></pre>
+
+  <h3>innerHTML</h3>
+  <pre><code>document.getElementById('fehler')
+        .innerHTML = "&lt;p&gt;Es gibt Fehler!&lt;/p&gt;";
+  </code></pre>
+</section>
+
+
+<!-- ========================================================= -->
+<!-- 2. WHY JQUERY -->
+<!-- ========================================================= -->
+<section>
+  <h2>2. Warum jQuery?</h2>
+
+  <p>
+    Reines DOM ist oft:
+  </p>
+  <ul>
+    <li>umständlich (verbose)</li>
+    <li>inkompatibel zwischen Browsern</li>
+    <li>keine CSS-Selektoren</li>
+    <li>kein automatisches Iterieren</li>
+  </ul>
+
+  <p><strong>Beispiel ohne jQuery:</strong></p>
+  <pre><code>var p = document.getElementById("box").getElementsByTagName("p");
+for (var i = 0; i &lt; p.length; i++) {
+  if (p[i].firstChild.data == "Zweiter Absatz") {
+    p[i].className = "green";
+  }
+}</code></pre>
+
+  <p><strong>Mit jQuery:</strong></p>
+  <pre><code>$(document).ready(function() {
+  $("#box p:contains('Zweiter Absatz')").addClass("green");
+});</code></pre>
+
+  <div class="interactive-example">
+    <div id="box">
+      <p>Erster Absatz</p>
+      <p>Zweiter Absatz</p>
+      <p>Dritter Absatz</p>
+    </div>
+    <button id="jQueryHighlight" class="btn btn-primary">Zweiten Absatz einfärben</button>
+  </div>
+
+  <h3>Vorteile von jQuery</h3>
+  <ul>
+    <li>CSS-Selektoren</li>
+    <li>filterbare Sammlungen</li>
+    <li>automatische Schleifen</li>
+    <li>Browser-übergreifend stabil</li>
+    <li>Methodenverkettung</li>
+  </ul>
+</section>
+
+
+<!-- ========================================================= -->
+<!-- 3. jQuery GRUNDLAGEN -->
+<!-- ========================================================= -->
+<section>
+  <h2>3. jQuery-Grundlagen</h2>
+
+  <h3>Selektoren</h3>
+  <pre><code>$('#id')
+$('.klasse')
+$('p')
+$('a[href^=http://]')</code></pre>
+
+  <h3>Filter</h3>
+  <pre><code>$('tr:even')
+$('a:not(.nav)')
+$(':hidden')
+$('p:contains("Text")')</code></pre>
+
+  <h3>Automatische Schleifen</h3>
+  <pre><code>$('img').fadeOut();</code></pre>
+
+  <h3>.each() & this</h3>
+  <pre><code>$('img').each(function() {
+  alert("Ich habe ein Bild gefunden");
+});</code></pre>
+
+  <pre><code>$('a[href^=http://]').each(function() {
+  var link = $(this).attr('href');
+  $('#bibListe').append("&lt;li&gt;" + link + "&lt;/li&gt;");
+});</code></pre>
+</section>
+
+
+<!-- ========================================================= -->
+<!-- 4. CONTENT MANIPULATION -->
+<!-- ========================================================= -->
+<section>
+  <h2>4. Inhalte manipulieren</h2>
+
+  <h3>html()</h3>
+  <pre><code>$('#f').html("&lt;p&gt;Fehler&lt;/p&gt;");</code></pre>
+
+  <h3>append() / prepend()</h3>
+  <pre><code>$('#f').append("&lt;p&gt;Neuer Fehler&lt;/p&gt;");
+$('#f').prepend("&lt;p&gt;Erster Fehler&lt;/p&gt;");</code></pre>
+
+  <h3>before() / after()</h3>
+  <pre><code>$('#name').after('&lt;span class="warn"&gt;Bitte ausfüllen&lt;/span&gt;');</code></pre>
+
+  <h3>remove() / replaceWith()</h3>
+  <pre><code>$('#popup').remove();
+$('#p101').replaceWith('&lt;p&gt;Hinzugefügt&lt;/p&gt;');</code></pre>
+</section>
+
+
+<!-- ========================================================= -->
+<!-- 5. CSS & ATTRIBUTES -->
+<!-- ========================================================= -->
+<section>
+  <h2>5. CSS-Klassen, Styles & Attribute</h2>
+
+  <h3>Klassen</h3>
+  <pre><code>$('a[href^=http://]').addClass('extern');
+$('#alert').removeClass('warn');
+$('body').toggleClass('dark');</code></pre>
+
+  <h3>CSS-Eigenschaften</h3>
+  <pre><code>$('#main').css('background-color','#FF0000');
+$('.pullquote').css({ padding: 40, border: '2px solid #123' });</code></pre>
+
+  <h3>Attribute</h3>
+  <pre><code>var src = $('#banner img').attr('src');
+$('#banner_img').attr('src','bilder/start.png');
+$('body').removeAttr('bgColor');</code></pre>
+</section>
+
+
+<!-- ========================================================= -->
+<!-- 6. ÜBUNGEN: PULL QUOTES + HEADINGS -->
+<!-- ========================================================= -->
+<section>
+  <h2>6. Übungen</h2>
+
+  <h3>Pull Quotes</h3>
+ <p>
+  Nach der Ausführung des Scripts wird das Zitat aus dem Fließtext automatisch
+  als hervorgehobenes Element dargestellt. Im folgenden Bild sehen Sie, wie der
+  Pull Quote visuell präsentiert wird:
+</p>
+
+<div class="lesson-image">
+  <img src="../assets/img/pullquote-darstellung.png" alt="Darstellung eines Pull Quotes">
+  <p class="img-caption">
+    Abbildung: Visuelle Darstellung eines automatisch erzeugten Pull Quotes
+  </p>
+</div>
+
+  <h3>Überschriften-Effekt</h3>
+  <pre><code>$(document).ready(function() {
+  $('#main h2').prepend('&lt;span class="streifenEffekt"&gt;&lt;/span&gt;');
+});</code></pre>
+
+  <h3>Methoden-Verkettung</h3>
+  <pre><code>$('#popUp')
+   .width(300)
+   .height(300)
+   .text("Hi!")
+   .fadeIn(1000);</code></pre>
+</section>
+
+
+<!-- 7.KOMPAKTE ZUSAMMENFASSUNG -->
+
+<section>
+  <h2>7. Kompakte Zusammenfassung </h2>
+
+  <ul>
+    <li>DOM = interne Struktur, die der Browser aus HTML erzeugt; klassisches DOM kann alles, ist aber umständlich + browserabhängig.</li>
+    <li>jQuery erleichtert DOM-Manipulation durch CSS-Selektoren, automatische Iteration, Methodenverkettung, Filter wie <code>:even</code>, <code>:odd</code>, <code>:contains</code>.</li>
+    <li><code>$(document).ready()</code> stellt sicher, dass das DOM geladen ist.</li>
+    <li>Inhaltsmanipulation: <code>html()</code>, <code>append()</code>, <code>prepend()</code>, <code>before()</code>, <code>after()</code>, <code>remove()</code>, <code>replaceWith()</code>.</li>
+    <li>Stile: <code>addClass()</code>, <code>removeClass()</code>, <code>toggleClass()</code>, <code>css()</code> (einzeln oder als Objekt).</li>
+    <li>Attribute: <code>attr()</code>, <code>removeAttr()</code>; üblich für <code>href</code>, <code>src</code>, <code>type</code>.</li>
+    <li><code>this</code> in <code>.each()</code> = DOM-Element; <code>$(this)</code> = jQuery-Objekt.</li>
+    <li>Übungen: Pullquotes, externe Links sammeln, Überschriften-Effekt — Trennung von HTML (Struktur), CSS (Design), JS (Funktionalität).</li>
+  </ul>
+</section>
+
+
+<!-- NAVIGATION -->
+<div class="nav-buttons">
+  <a href="lektion5.html" class="btn back">← Zurück</a>
+  <a href="../index.html" class="btn next">Zur Startseite →</a>
+</div>
+
+</main>
+
+<section class="about">
+  <h2>Über mich</h2>
+  <p><strong>Name:</strong> Pilli Mohamed</p>
+  <p><strong>Matrikelnummer:</strong>8052091</p>
+  <p><strong>Kurs:</strong> Webprogrammierung</p>
+</section>
+
+<footer>
+  <p>&copy; <span id="jahr"></span> Mein Portfolio</p>
+</footer>
+
+
+<script>
+document.getElementById("jahr").textContent = new Date().getFullYear();
+
+// highlight example
+$("#jQueryHighlight").on("click", function() {
+  $("#box p:contains('Zweiter Absatz')").addClass("green");
+});
+
+// pullquote
+$("#pullBtn").on("click", function() {
+  $("span.pq").each(function() {
+    let q = $(this).clone();
+    q.removeClass("pq").addClass("pullquote");
+    $(this).before(q);
+  });
+  $(this).prop("disabled", true);
+});
+</script>
+
+</body>
+</html>
